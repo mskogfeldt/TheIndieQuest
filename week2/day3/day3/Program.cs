@@ -22,7 +22,6 @@ namespace day3
             for (int i = 0; i < totalFrames; i++)
             {
                 int firstRoll = random.Next(0, 11);
-                string firsRollString = "";
                 if (firstRoll == 10)
                 {
                     Console.Write($"| |x| ");
