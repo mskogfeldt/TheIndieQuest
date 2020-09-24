@@ -12,103 +12,70 @@ namespace day3
 
 
 
-            for (int i = 0; i <= totalFrames; i++)
+            for (int i = 0; i < totalFrames; i++)
             {
                 Console.Write("+-----");
-                if (i == totalFrames)
-                {
-                        Console.Write("+");
-                    }
-                
             }
-            Console.WriteLine();
+            Console.WriteLine("+");
 
-            for (int i = 0; i <= totalFrames; i++)
+
+            for (int i = 0; i < totalFrames; i++)
             {
                 int firstRoll = random.Next(0, 11);
+                string firsRollString = "";
                 if (firstRoll == 10)
-                { 
+                {
                     Console.Write($"| |x| ");
                 }
                 else
                 {
-                    int secondRoll = random.Next(0, 11 - firstRoll);
-                    if (firstRoll == 0 && secondRoll == 0)
+                    if (firstRoll == 0)
                     {
-                        Console.Write($"| |-|-");
+                        Console.Write($"| |-|");
                     }
                     else
                     {
-                        if (firstRoll == 0 && secondRoll == 10)
-                        {
-                            Console.Write($"| |-|/");
-                        }
-                        else
-                        {
-                            if (firstRoll == 0)
-                            {
-                                Console.Write($"| |-|{secondRoll}");
-                            }
-                            else 
-                            {
-                                if (secondRoll == 0)
-                                {
-                                    Console.Write($"| |{firstRoll}|-");
-                                }
-                                else
-                                {
-                                    if (firstRoll + secondRoll == 10)
-                                    {
-                                        Console.Write($"| |{firstRoll}|/");
-                                    }
-                                    else
-                                    {
-                                        Console.Write($"| |{firstRoll}|{secondRoll}");
-                                    }
-                                }
-                            }
-                        }
+                        Console.Write($"| |{firstRoll}|");
                     }
-
-
-                 }
-                if (i == totalFrames)
-                {
-                    Console.Write("|");
+                    int secondRoll = random.Next(0, 11 - firstRoll);
+                    if (secondRoll == 0)
+                    {
+                        Console.Write($"-");
+                    }
+                    else if (firstRoll + secondRoll == 10)
+                    {
+                        Console.Write($"/");
+                    }
+                    else
+                    {
+                        Console.Write($"{secondRoll}");
+                    }
                 }
-
             }
-            Console.WriteLine();
+            Console.WriteLine("|");
 
-            for (int i = 0; i <= totalFrames; i++)
+            for (int i = 0; i < totalFrames; i++)
             {
                 Console.Write("| ----");
-                if (i == totalFrames)
-                {
-                    Console.Write("|");
-                }
             }
 
-            Console.WriteLine();
+            Console.WriteLine("|");
 
-            for (int i = 0; i <= totalFrames; i++)
+            for (int i = 0; i < totalFrames; i++)
             {
                 Console.Write("|     ");
             }
 
-            Console.Write("|");
-            Console.WriteLine();
+            Console.WriteLine("|");
 
-            for (int i = 0; i <= totalFrames; i++)
+            for (int i = 0; i < totalFrames; i++)
             {
                 Console.Write("+-----");
-                if (i == totalFrames)
-                {
-                    Console.Write("+");
-                }
+               
             }
+            Console.WriteLine("+");
 
-           
+
 
             /*
                         for (int i = 0; i <= 3; i++)
