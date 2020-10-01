@@ -7,85 +7,93 @@ namespace w3d2
 {
     class Program
     {
+        //Program that randomises a Map.
         static void Main(string[] args)
         {
-
-            var symbols = "!@#$%^&*()_+-=[];',.\\/~{}:|<>?";
+      
+            var symbolsUsedForTheForrest = "Q@C$U0&*()oO86uDGgÖö36";
             var random = new Random();
 
             int withOfMap = 80;
             int heightOfMap = 30;
-            var coordinatesForRiver = GenerateCoordinatesForRiver(withOfMap, heightOfMap);
-            var shapeOfRiver = GenerateShapeOfRiver(withOfMap, heightOfMap, coordinatesForRiver);
-            var roadCoordinates = GenerateCoordinatesForRoad(withOfMap, heightOfMap, coordinatesForRiver);
+            var coordinatesForRiver = GenerateCoordinatsForVerticleLine(withOfMap, heightOfMap, withOfMap * 3 / 4, 3, withOfMap * 2 / 3, withOfMap * 4 / 5); 
+            var shapeOfRiver = GenerateShapeOfVerticalLine(coordinatesForRiver);
+            var wallCoordinates = GenerateCoordinatsForVerticleLine(withOfMap, heightOfMap, withOfMap / 4, 8, withOfMap / 5, withOfMap / 3);
+            var shapeOfWall = GenerateShapeOfVerticalLine(wallCoordinates);
+            var roadCoordinates = GenerateCoordinatesForRoad(withOfMap, heightOfMap, coordinatesForRiver, wallCoordinates);
             var bridgeCoordinates = GenerateCoordinatesForBridge(withOfMap, coordinatesForRiver, roadCoordinates);
-           //var secondRoad = GenerateCoordinatesForSecondRoad(heightOfMap, coordinatesForRiver, roadCoordinates);
-            drawTheSquare(withOfMap, heightOfMap, coordinatesForRiver, shapeOfRiver, roadCoordinates, bridgeCoordinates);
+            int riverCrossig = LoopVerticlyLookForCrossingHorisontalLine(heightOfMap, coordinatesForRiver, roadCoordinates);
+            var gateCoordinates = GenerateCoordinatesForGate(withOfMap, wallCoordinates, roadCoordinates);
+            drawTheSquare(withOfMap, heightOfMap, coordinatesForRiver, shapeOfRiver, roadCoordinates, bridgeCoordinates, wallCoordinates, gateCoordinates);
             
-
-
-            List<int> GenerateCoordinatesForRiver(int width, int height)
+          
+            List<int> GenerateCoordinatesForBridge(int width, List<int> coordinatesForRiver, List<int> coordinatesForRoad)
             {
-                int startingModifier = random.Next(1, 5);
-                int latestPositionOfRiver = width * 3 / 4 + startingModifier;
-                int willRiverTurn = 0;
-                var coordinatesForRiver = new List<int> { };
-                for (int i = 0; i < height - 1; i++)
+                var coordinatesForBridge = new List<int> { };
+                for (int x = 0; x < width - 1; x++)
                 {
-                    willRiverTurn = random.Next(1, 4);
-                    if (willRiverTurn == 2 && latestPositionOfRiver > width * 2 / 3)
-                    {
-                        latestPositionOfRiver -= 1;
-                        coordinatesForRiver.Add(latestPositionOfRiver);
-                    }
-                    else if (willRiverTurn == 3 && latestPositionOfRiver < width * 5 / 6)
-                    {
-                        latestPositionOfRiver += 1;
-                        coordinatesForRiver.Add(latestPositionOfRiver);
-                    }
-                    else
-                    {
-                        coordinatesForRiver.Add(latestPositionOfRiver);
-                    }
+                    int theValueOfRoad = coordinatesForRoad[x];
 
+                    if (x == coordinatesForRiver[theValueOfRoad])
+                    {
+                        coordinatesForBridge.Add(x - 3);
+                        coordinatesForBridge.Add(coordinatesForRoad[x] - 1);
+                        coordinatesForBridge.Add(coordinatesForRoad[x] + 1);
+                    }
                 }
-                return coordinatesForRiver;
+                return coordinatesForBridge;
             }
 
+            int WillVerticalLineTurn(int curentValue, int chanseForTurn, int leftMostLimit,  int rightmostLine)
+            {
+                int willLineTurn = random.Next(1, chanseForTurn);
+                if (willLineTurn == chanseForTurn - 1 && curentValue > leftMostLimit)
+                {
+                    return curentValue - 1;
+                }
+                else if (willLineTurn == chanseForTurn && curentValue < rightmostLine)
+                {
+                    return curentValue - 1;
+                }
+                return curentValue;
+            
+            }
 
-            List<string> GenerateShapeOfRiver(int widt, int height, List<int> coordinatesForRiver)
+            List<string> GenerateShapeOfVerticalLine(List<int> coordinatesForVerticleLine)
             {
                 string riversStrait = "|";
                 string riverTurnsLeft = "/";
                 string riverTurnsRight = @"\";
-                var listForShapeOfRiver = new List<string> { };
+                var listForShapeOfVerticleLine= new List<string> { };
 
-                for (int i = 0; i < coordinatesForRiver.Count - 1; i++)
+                for (int y = 0; y < coordinatesForVerticleLine.Count - 1; y++)
                 {
-                    if (coordinatesForRiver[i] < coordinatesForRiver[i + 1])
+                    if (coordinatesForVerticleLine[y] < coordinatesForVerticleLine[y + 1])
                     {
-                        listForShapeOfRiver.Add(riverTurnsRight);
+                        listForShapeOfVerticleLine.Add(riverTurnsRight);
                     }
-                    else if (coordinatesForRiver[i] > coordinatesForRiver[i + 1])
+                    else if (coordinatesForVerticleLine[y] > coordinatesForVerticleLine[y + 1])
                     {
-                        listForShapeOfRiver.Add(riverTurnsLeft);
+                        listForShapeOfVerticleLine.Add(riverTurnsLeft);
                     }
                     else
                     {
-                        listForShapeOfRiver.Add(riversStrait);
+                        listForShapeOfVerticleLine.Add(riversStrait);
                     }
                 }
-                listForShapeOfRiver.Add(riversStrait);
-                return listForShapeOfRiver;
+                listForShapeOfVerticleLine.Add(riversStrait);
+                return listForShapeOfVerticleLine;
             }
 
-            List<int> GenerateCoordinatesForRoad(int width, int height, List<int> coordinatesForRiver)
+            List<int> GenerateCoordinatesForRoad(int width, int height, List<int> coordinatesForRiver, List<int> coordinatesForWall)
             {
-                int startingModifier = random.Next(-2, 2);
+                int startingModifier = random.Next(-1, 2);
                 int latestPositionOfRoad = height * 1 / 2 + startingModifier;
                 int willRoadTurn = 0;
                 bool crossingWater = false;
-                int numberToSayHowLongTheRoadWillBeStraitWhenCrossingWater = 10;
+                bool crossingWall = false;
+                int numberToSayHowLongTheRoadWillBeStraitWhenCrossingWater = 9;
+                int numberToSayHowLongTheRoadWillBeStraitWhenCrossingWall = 3;
                 var coordinatesForRoad = new List<int> { };
                 for (int i = 0; i < width - 1; i++)
                 {
@@ -99,10 +107,24 @@ namespace w3d2
                             crossingWater = false;
                         }
                     }
-                    else if (i + 5 - coordinatesForRiver[latestPositionOfRoad] < 1 && i + 5 - coordinatesForRiver[latestPositionOfRoad] > -3)
+                    else if (i + 5 - coordinatesForRiver[latestPositionOfRoad] < 1 && i + 5 - coordinatesForRiver[latestPositionOfRoad] > -1)
                     {
                         crossingWater = true;
                         coordinatesForRoad.Add(latestPositionOfRoad);
+                    }
+                    else if (i + 1 - coordinatesForWall[latestPositionOfRoad] <= 0 && i + 1 - coordinatesForWall[latestPositionOfRoad] >= -1)
+                    {
+                        coordinatesForRoad.Add(latestPositionOfRoad);
+                        crossingWall = true;
+                    }
+                    else if (crossingWall == true)
+                    {
+                        coordinatesForRoad.Add(latestPositionOfRoad);
+                        numberToSayHowLongTheRoadWillBeStraitWhenCrossingWall--;
+                        if(numberToSayHowLongTheRoadWillBeStraitWhenCrossingWall < 1)
+                        {
+                            crossingWall = false;
+                        }
                     }
                     else if (willRoadTurn == 4 && latestPositionOfRoad > height * 1 / 3)
                     {
@@ -123,24 +145,36 @@ namespace w3d2
                 return coordinatesForRoad;
             }
 
-            List<int> GenerateCoordinatesForBridge(int width, List<int> coordinatesForRiver, List<int> coordinatesForRoad)
+            List<int> GenerateCoordinatsForVerticleLine(int width, int height, int startingPoint, int oneDividedByThisNumberMinusOneIsChanseForTurn, int leftostPoint, int rightmostPoint)
             {
-                var coordinatesForBridge = new List<int> { };
+                int currentPossition = startingPoint;
+                var coordinatesForWall = new List<int> { };
+                for (int y = 0; y < height - 1; y++) 
+                {
+                   coordinatesForWall.Add(WillVerticalLineTurn(currentPossition, oneDividedByThisNumberMinusOneIsChanseForTurn, leftostPoint, rightmostPoint));
+                }
+                return coordinatesForWall;
+            }
+
+            List<int> GenerateCoordinatesForGate(int width, List<int> coordinatesForWall, List<int> coordinatesForRoad)
+            {
+                var coordinatesForGates = new List<int> { };
                 for (int x = 0; x < width - 1; x++)
                 {
                     int theValueOfRoad = coordinatesForRoad[x];
 
-                    if (x == coordinatesForRiver[theValueOfRoad])
+                    if (x == coordinatesForWall[theValueOfRoad])
                     {
-                        coordinatesForBridge.Add(x - 2);
-                        coordinatesForBridge.Add(coordinatesForRoad[x] - 1);
-                        coordinatesForBridge.Add(coordinatesForRoad[x] + 1);
+                        coordinatesForGates.Add(x - 1);
+                        coordinatesForGates.Add(coordinatesForRoad[x] - 1);
+                        coordinatesForGates.Add(coordinatesForRoad[x] + 1);
                     }
                 }
-                return coordinatesForBridge;
+                return coordinatesForGates;
             }
 
-            int findCoordinateWheraRiverMeetsRoad(int height, List<int> coordinatesForRiver, List<int> coordinatesForRoad)
+           
+            int LoopVerticlyLookForCrossingHorisontalLine(int height, List<int> coordinatesForRiver, List<int> coordinatesForRoad)
             {
                 for (int y = 0; y < height; y++)
                 {
@@ -152,48 +186,38 @@ namespace w3d2
                 }
                 return height + 1; 
             }
-            
-   /*         
-            List<int> GenerateCoordinatesForSecondRoad(int height, List<int> coordinatesForRiver, List<int> coordinatesForRoad)
+
+            ConsoleColor RandomiseCollor()
             {
-                var coordinatesForSecondRoad = new List<int> { };
-                bool secondRoadStarts = false;
-                int hoolabaloo = 0;
-                for (int y = 0; y < height; y++)
+                ConsoleColor theRandomisedCollor = ConsoleColor.White;
+                int randomColor = random.Next(1, 8);
+                if (randomColor == 7) 
                 {
-                    int theValueOfRiver = coordinatesForRiver[y];
-                    if (y == coordinatesForRoad[theValueOfRiver])
-                    {
-                        secondRoadStarts = true;
-                        coordinatesForSecondRoad.Add(theValueOfRiver - 5);
-                    }
-                    else if (secondRoadStarts == true)
-                    {
-                        coordinatesForSecondRoad.Add(theValueOfRiver - 5);
-                    }
-                    else
-                    {
-                        hoolabaloo++;
-                    }
-                    
+                    theRandomisedCollor = ConsoleColor.Red;
+                    return theRandomisedCollor;
                 }
-                return coordinatesForSecondRoad;
-            }*/
+                if (randomColor == 5 || randomColor == 6)
+                {
+                    theRandomisedCollor = ConsoleColor.Yellow;
+                    return theRandomisedCollor;
+                }
+                return theRandomisedCollor = ConsoleColor.Green;
 
+            }
 
-            string randomiseSymbol()
+            string RandomiseSymbol()
             {
-                int indexOfSymbolToReturn = random.Next(0, symbols.Length);
-                return symbols[indexOfSymbolToReturn].ToString();
+                int indexOfSymbolToReturn = random.Next(0, symbolsUsedForTheForrest.Length);
+                return symbolsUsedForTheForrest[indexOfSymbolToReturn].ToString();
             }
         
-            void drawTheSquare(int width, int height, List<int> coordinatsForRiver, List<string> shapeOfRiver, List<int> coordinatsForRoad, List<int> coordinatesForTheBridge)
+            void drawTheSquare(int width, int height, List<int> coordinatsForRiver, List<string> shapeOfRiver, List<int> coordinatsForRoad, 
+                List<int> coordinatesForTheBridge, List<int> coordinatesForTheWall, List<int> coordinatesForGate)
             {
                 var printText = new List<string> { "A", "D", "V", "E", "N", "T", "U", "R", "E", " ", "M", "A", "P" };
                 int centringspaces = (width - printText.Count) / 2;              
-                int topBridgeLeft = 5;
-                int lowerBridgeLeft = 5;
-                int riverCrossig = findCoordinateWheraRiverMeetsRoad(height, coordinatesForRiver, coordinatsForRoad);
+                int topBridgeLeft = 7;
+                int lowerBridgeLeft = 7;
                 bool keepOnBuildingTopBridge = false;
                 bool keepOnBuildingLowerBridge = false;
                 for (int y = 0; y < height; y++)
@@ -255,6 +279,19 @@ namespace w3d2
                                 keepOnBuildingLowerBridge = false;
                             }
                         }
+                        else if (y == coordinatesForGate [1] && x == coordinatesForTheWall[y])
+                        {
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.Write("[]");
+                            x++;
+                        }
+                        else if (y == coordinatesForGate[2] && x == coordinatesForTheWall[y] )
+                        {
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.Write("[]");
+                            x++;
+                        }
+
                         else if (y == coordinatsForRoad[x])
                         {
                             Console.ForegroundColor = ConsoleColor.White;
@@ -265,13 +302,32 @@ namespace w3d2
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.Write("#");
                         }
-                        else if ((x == 1 || x == 2))
+                        else if (x == coordinatesForTheWall[y] || x - 1 == coordinatesForTheWall[y] )
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            string toWrite = randomiseSymbol();
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                            Console.Write(shapeOfWall[y]);
+                        }
+                        else if (x == 1 || x == 2)
+                        {
+                            Console.ForegroundColor = RandomiseCollor();
+                            string toWrite = RandomiseSymbol();
                             Console.Write(toWrite);
                         }
-                        else if (x == coordinatsForRiver[y] || x - 1 == coordinatsForRiver[y] || x - 2 == coordinatsForRiver[y])
+                        else if (x == 3 || x == 4)
+                        {
+                            Console.ForegroundColor = RandomiseCollor();
+                            int willThereBeOneTree = random.Next(1, 4);
+                            if (willThereBeOneTree == 3)
+                            {
+                                string toWrite = RandomiseSymbol();
+                                Console.Write(toWrite);
+                            }
+                            else
+                            {
+                                Console.Write(" ");
+                            }
+                        }
+                        else if (x == coordinatsForRiver[y] || x + 1 == coordinatsForRiver[y] || x + 2 == coordinatsForRiver[y])
                         {
                             Console.ForegroundColor = ConsoleColor.Blue;
                             Console.Write(shapeOfRiver[y]);
