@@ -202,7 +202,6 @@ namespace w3d2
                     return theRandomisedCollor;
                 }
                 return theRandomisedCollor = ConsoleColor.Green;
-
             }
 
             string RandomiseSymbol()
