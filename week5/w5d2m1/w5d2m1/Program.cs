@@ -61,12 +61,12 @@ namespace w5d2m1
             int GetTheNextTwoRollsWhenStriking(List<int> listOfAllThrows, int theThrowInex)
             {
                 int theDynamicDuo = 0;
-                if (listOfAllThrows.Count - theThrowInex > 1)
+                if (theThrowInex +2 < listOfAllThrows.Count)
                 {
                     theDynamicDuo += listOfAllThrows[theThrowInex + 1];
                     theDynamicDuo += listOfAllThrows[theThrowInex + 2];
                 }
-                else if (listOfAllThrows.Count - theThrowInex > 0)
+                else if (theThrowInex + 1 < listOfAllThrows.Count)
                 {
                     theDynamicDuo += listOfAllThrows[theThrowInex + 1];
                 }
@@ -76,9 +76,9 @@ namespace w5d2m1
             int GetTheNextRollsWhenSparring(List<int> listOfAllThrows, int theThrowInex)
             {
                 int extraPoints = 0;
-                if (listOfAllThrows.Count - theThrowInex > 0)
+                if (theThrowInex + 2 < listOfAllThrows.Count)
                 {
-                    extraPoints += listOfAllThrows[theThrowInex + 1];
+                    extraPoints += listOfAllThrows[theThrowInex + 2];
                 }
                 return extraPoints;
             }
@@ -86,27 +86,27 @@ namespace w5d2m1
             int[] CalculateTotalPoints(int[][] frameByFramePoints, List<int> listOfAllThrows)
             {
                 int countedThrows = 0;
-                int[] calculateTotalPoints = new int[10];
+                int[] results = new int[10];
                 for (int i = 0; i < 10; i++)
                 {
                     if (frameByFramePoints[0][i] == 10)
                     {
-                        calculateTotalPoints[i] = 10 + GetTheNextTwoRollsWhenStriking(listOfAllThrows, countedThrows);
+                        results[i] = 10 + GetTheNextTwoRollsWhenStriking(listOfAllThrows, countedThrows);
                         countedThrows++;
                     }
                     else if (frameByFramePoints[0][i] + frameByFramePoints[1][i] == 10)
                     {
-                        calculateTotalPoints[i] = 10 + GetTheNextRollsWhenSparring(listOfAllThrows, countedThrows);
+                        results[i] = 10 + GetTheNextRollsWhenSparring(listOfAllThrows, countedThrows);
                         countedThrows += 2;
                     }
                     else
                     {
-                        calculateTotalPoints[i] += frameByFramePoints[0][i] + frameByFramePoints[1][i];
+                        results[i] += frameByFramePoints[0][i] + frameByFramePoints[1][i];
                         countedThrows += 2;
                     }
 
                 }
-                return calculateTotalPoints;
+                return results;
             }
 
             int ThrowFirstBall()
@@ -219,121 +219,8 @@ namespace w5d2m1
                     Console.WriteLine("Points gained: " + roundPoints[i]);
                     score += roundPoints[i];
                     Console.WriteLine("Score " + score);
-
-
                 }
             }
         }
     }
 }
-/*
- *      int CalculateNumberOfRolls(int[][] frameByFramePoints)
-            {
-                int numberOfThrows = 20;
-                for (int i = 0; i < 10; i++)
-                {
-                    if (frameByFramePoints[0][i] == 10 && i != 9) numberOfThrows--;
-                    else if (frameByFramePoints[0][i] == 10 && i == 9 || frameByFramePoints[0][i] + frameByFramePoints[1][i] == 10 && i == 9) numberOfThrows++;
-                }
-                return numberOfThrows;
-            }
- * 
- * 
- * 
- * void printResults()
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    int totalPinns = 0;
-                    int frame = i + 1;
-                    Console.WriteLine("Frame " + frame);
-                    if (bowlingResults[0][i] == 10)
-                    {
-                        totalPinns += bowlingResults[0][i];
-                        Console.WriteLine("Roll 1: x");
-                    }
-                    else
-                    {
-                        if (bowlingResults[0][i] == 0)
-                        {
-                            Console.WriteLine("Roll 1: -");
-                        }
-                        else
-                        {
-                            totalPinns += bowlingResults[0][i];
-                            Console.WriteLine("Roll 1: " + bowlingResults[0][i]);
-                        }
-                        if (bowlingResults[1][i] == 0)
-                        {
-                            Console.WriteLine("Roll 2: -");
-                        }
-                        else if (bowlingResults[0][i] + bowlingResults[1][i] == 10)
-                        {
-                            totalPinns += bowlingResults[1][i];
-                            Console.WriteLine("Roll 2: /");
-                        }
-                        else
-                        {
-                            totalPinns += bowlingResults[1][i];
-                            Console.WriteLine("Roll 2: " + bowlingResults[1][i]);
-                        }
-                    }
-                    if (i == 9 && bowlingResults[0][i] == 10)
-                    {
-                        if (bowlingResults[2][0] == 10 && bowlingResults[2][1] == 10)
-                        {
-                            totalPinns += bowlingResults[2][0];
-                            Console.WriteLine("Roll 2: x");
-                            totalPinns += bowlingResults[2][1];
-                            Console.WriteLine("Roll 3: x");
-                        }
-                        else if (bowlingResults[2][0] == 10)
-                        {
-                            totalPinns += bowlingResults[2][0];
-                            Console.WriteLine("Roll 2: x");
-
-                        }
-                        else if (bowlingResults[2][0] == 0)
-                        {
-                            Console.WriteLine("Roll 2: x");
-                        }
-                        else
-                        {
-                            totalPinns += bowlingResults[2][0];
-                            Console.WriteLine("Roll 2: " + bowlingResults[2][0]);
-                        }
-                        if (bowlingResults[2][1] == 0)
-                        {
-                            Console.WriteLine("Roll 3: -");
-                        }
-                        else if (bowlingResults[2][0] + bowlingResults[2][1] == 10)
-                        {
-                            totalPinns += bowlingResults[2][1];
-                            Console.WriteLine("Roll 3: /");
-                        }
-                        else
-                        {
-                            totalPinns += bowlingResults[2][1];
-                            Console.WriteLine("Roll 3: " + bowlingResults[2][1]);
-                        }
-                    }
-                    else if (i == 9 && bowlingResults[0][i] + bowlingResults[1][i] == 10)
-                    {
-                        if (bowlingResults[2][0] == 10)
-                        {
-                            totalPinns += bowlingResults[2][0];
-                            Console.WriteLine("Roll 3: x");
-                        }
-                        else if (bowlingResults[2][0] == 0)
-                        {
-                            Console.WriteLine("Roll 3: -");
-                        }
-                        else
-                        {
-                            totalPinns += bowlingResults[2][0];
-                            Console.WriteLine("Roll 3: " + bowlingResults[2][0]);
-                        }
-                    }
-                    Console.WriteLine("Knocked Down Pinns " + totalPinns);
-                }
-            }*/
