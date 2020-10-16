@@ -129,6 +129,20 @@ namespace w3d5m1
             string word = number.ToString();
             return word;
         }
+        
+        public string makeTheRightSymbolRollOne(int firstRoll)
+        {
+            if (firstRoll == 10) return "x";
+            if (firstRoll == 0) return "-";
+            return takeIntMakeString(firstRoll);
+        }
+
+        public string makeTheRightSymbolRollTwo(int firstRoll, int secondRoll)
+        {
+            if (firstRoll + secondRoll == 10) return "/";
+            else if (secondRoll == 0) return "-";
+            return takeIntMakeString(secondRoll);
+        }
 
         public string isPinStanding(List<int> pins, int indexOfPins)
         {

@@ -9,25 +9,66 @@ namespace w3d5m1
         string f = " ";
         string s = " ";
 
-        string theFrame = "FRAME ";
-        string frameOne = "+-----+";
-        string frameTwo = "| | | |";
-        string frameThree = "| ----|";
-        string frameFour = "|     |";
+        //string theFrame = "FRAME ";
+        string frameOne   = "─┬─┬─┬";
+        string frameTwo   = " | | |";
+        string frameThree = " └─┴─┤";
+        string frameFour  = "     |";
+        string frameFive  = "─────┴";
 
-        List<string> listFrame = new List<string> { };
-        List<string> listFrameOne = new List<string> { };
-        List<string> listFrameTwo = new List<string> { };
-        List<string> listFrameThree = new List<string> { };
-        List<string> listFrameFour = new List<string> { };
-        List<string> listFrameFive = new List<string> { };
+        string frontOne   = "┌";
+        string frontTwo   = "│";
+        string frontThree = "│";
+        string frontFour  = "│";
+        string frontFive  = "└";
 
-        public string changeStringAfterThrow(string throwOne, string throwTwo, int frame)
+
+        string endOne   = "─┬─┬─┬─┐";
+        string endTwo   = " │ │ │ │";
+        string endThree = " └─┴─┴─│";
+        string endFour  = "       │";
+        string endFive  = "───────┘";
+
+
+
+        List<string> listFrame = new List<string>      { "┌", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬─┐" };
+        List<string> listFrameTwo = new List<string>   { "│", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " │ │ │ │" };
+        List<string> listFrameThree = new List<string> { "│", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┴─│" };
+        List<string> listFrameFour = new List<string>  { "│", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "       │" };
+        List<string> listFrameFive = new List<string>  { "└", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "───────┘" };
+
+        public string changeStringAfterThrow(string throwOne, string throwTwo)
         {
             string returnString = "";
-            returnString += "| |" + throwOne + "|" + throwTwo + "|";
+            returnString += " |" + throwOne + "|" + throwTwo + "|";
             return returnString;       
         }
+
+        public string changeStringAfterThrowEndFrame(string throwOne, string throwTwo, string ThrowThree)
+        {
+            string returnString = "";
+            returnString += " |" + throwOne + "|" + throwTwo + "|" + ThrowThree + "|";
+            return returnString;
+        }
+
+        public string changeScoreAfterTrow(string newScore)
+        {
+            string returnString = "";
+            if (newScore.Length == 3) returnString += " " + newScore + " │";
+            else if (newScore.Length == 2) returnString += "  " + newScore + " │";
+            else if (newScore.Length == 1) returnString += "   " + newScore + " │";
+            return returnString;
+        }
+
+        public string changeScoreAfterTrowEndLane(string newScore)
+        {
+            string returnString = "";
+            if (newScore.Length == 3) returnString += " " + newScore + " │";
+            else if (newScore.Length == 2) returnString += "  " + newScore + "  │";
+            else if (newScore.Length == 1) returnString += "   " + newScore + "  │";
+            return returnString;
+        }
+
 
         public void changeStringInList(string newScore, int frame)
         {
@@ -36,13 +77,15 @@ namespace w3d5m1
 
         public void addFrameToTheStrings(string newScore, int frame)
         {
-            listFrame.Add(theFrame);
+            //listFrame.Add(theFrame);
             listFrameOne.Add(frameOne);
             listFrameTwo.Add(newScore);
             listFrameThree.Add(frameThree);
             listFrameFour.Add(frameFour);
             listFrameFive.Add(frameOne);
         }
+
+        public void buildTheFrame()
 
          
 /*
