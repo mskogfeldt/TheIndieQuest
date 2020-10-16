@@ -37,24 +37,24 @@ namespace w3d5m1
 
                 presentBeforeThrowing(pins, throwOne, throwTwo, frame);
                 int laneToThrowTheBall = userIo.letPlayerChoseWhereToTrowTheBall();
-                service.knockPins(pins, laneToThrowTheBall);
+                service.knockPins(pins, laneToThrowTheBall, 0); ;
                 int result = service.calculateScoreFirstThrow(pins);
                 service.addToScore(result);
-                Console.WriteLine("RESULT! " + result);
-                Console.WriteLine("Score! " + service.score);
+              /*  Console.WriteLine("RESULT! " + result);
+                Console.WriteLine("Score! " + service.score);*/
               
                 string firstResult = service.takeIntMakeString(result);
-                Console.WriteLine(firstResult + " " + firstResult + " " + firstResult);
+              //  Console.WriteLine(firstResult + " " + firstResult + " " + firstResult);
                 if (result != 10)
                 {
                     presentBeforeThrowing(pins, firstResult, throwTwo, frame);
                     int laneToThrowTheSecondBall = userIo.letPlayerChoseWhereToTrowTheBall();
-                    service.knockPins(pins, laneToThrowTheSecondBall);
+                    service.knockPins(pins, laneToThrowTheSecondBall, 0);
                     int resultForSecondBall = service.calculateScoreSecondAndThirdThrow(pins, result);
                     service.addToScore(resultForSecondBall);
-                    string secondResult = service.takeIntMakeString(result);
-                    Console.WriteLine("RESULT! " + resultForSecondBall);
-                    Console.WriteLine("Score! " + service.score);
+                    string secondResult = service.takeIntMakeString(resultForSecondBall);
+                  /*  Console.WriteLine("RESULT! " + resultForSecondBall);
+                    Console.WriteLine("Score! " + service.score);*/
                     presentBeforeThrowing(pins, firstResult, secondResult, frame);
 
                 }

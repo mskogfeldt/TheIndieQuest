@@ -60,7 +60,7 @@ namespace w3d5m1
         public void knockPins(List<int> pins, int lane, int coordinateY)
         {
             int rangeTravled = coordinateY;
-            if (lane == 4 && pins[0] == 0)
+            if (lane == 4 && pins[0] > 0 && rangeTravled == 0)
             {
                 pins[0] = 0;
                 int newLane1 = doesObjectChangeLaneAfterImpact(lane);
@@ -69,7 +69,7 @@ namespace w3d5m1
                 knockPins(pins, newLane1, rangeTravled);
                 knockPins(pins, newLane2, rangeTravled);
             }
-            else rangeTravled++;
+            else if (rangeTravled == 0) rangeTravled++;
             if (lane == 3 && pins[1] > 0 && rangeTravled == 1)
             {
                 pins[1] = 0;
@@ -88,7 +88,7 @@ namespace w3d5m1
                 knockPins(pins, newLane1, rangeTravled);
                 knockPins(pins, newLane2, rangeTravled);
             }
-            else rangeTravled++;
+            else if (rangeTravled == 1) rangeTravled++;
             if (lane == 2 && pins[3] > 0 && rangeTravled < 3)
             {
                 rangeTravled = 2;
@@ -117,7 +117,7 @@ namespace w3d5m1
                 knockPins(pins, newLane1, rangeTravled);
                 knockPins(pins, newLane2, rangeTravled);
             }
-            else rangeTravled ++;
+            else if (rangeTravled == 2) rangeTravled ++;
             if (lane == 1 && pins[6] > 0 && rangeTravled == 3) pins[6] = 0;
             if (lane == 3 && pins[7] > 0 && rangeTravled == 3) pins[7] = 0;
             if (lane == 5 && pins[8] > 0 && rangeTravled == 3) pins[8] = 0;
