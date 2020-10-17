@@ -28,7 +28,8 @@ namespace w3d5m1
 
             void presentBeforeThrowing(List<int> pins,string stringOne, string stringTwo, int frame)
             {
-                userIo.printTheFrame(stringOne, stringTwo, frame);
+                //userIo.printTheFrame(stringOne, stringTwo, frame);
+                userIo.printTheScoreBoard(scoreBoard.getListOne(), scoreBoard.getListTwo(), scoreBoard.getListThree(), scoreBoard.getListFour(), scoreBoard.getListFive());
                 userIo.PrintPinns(pins);
                 userIo.printGraphicsForTrowingTheBall();
             }
@@ -61,7 +62,7 @@ namespace w3d5m1
 
                 presentBeforeThrowing(pins, throwOne, throwTwo, frame);
                 int laneToThrowTheBall = userIo.letPlayerChoseWhereToTrowTheBall();
-                service.knockPins(pins, laneToThrowTheBall, 0); ;
+                service.knockPins(pins, laneToThrowTheBall, 0);
                 int result = service.calculateScoreFirstThrow(pins);
                 bowlingResults[0][frame - 1] = result;
                 service.addToScore(result); /*OBS!! REMOVE????*/

@@ -5,7 +5,7 @@ using System.Text;
 namespace w3d5m1
 {
     public class FrameWork
-    {
+    {/*
         string f = " ";
         string s = " ";
 
@@ -28,14 +28,39 @@ namespace w3d5m1
         string endThree = " └─┴─┴─│";
         string endFour  = "       │";
         string endFive  = "───────┘";
+        */
 
 
-
-        List<string> listFrame = new List<string>      { "┌", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬─┐" };
+        List<string> listFrameOne = new List<string>   { "┌", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬─┐" };
         List<string> listFrameTwo = new List<string>   { "│", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " │ │ │ │" };
         List<string> listFrameThree = new List<string> { "│", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┴─│" };
         List<string> listFrameFour = new List<string>  { "│", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "       │" };
         List<string> listFrameFive = new List<string>  { "└", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "───────┘" };
+
+        public List<string> getListOne()
+        {
+            return listFrameOne;
+        }
+
+        public List<string> getListTwo()
+        {
+            return listFrameTwo;
+        }
+
+        public List<string> getListThree()
+        {
+            return listFrameThree;
+        }
+
+        public List<string> getListFour()
+        {
+            return listFrameFour;
+        }
+
+        public List<string> getListFive()
+        {
+            return listFrameFive;
+        }
 
         public string changeStringAfterThrow(string throwOne, string throwTwo)
         {
@@ -69,23 +94,28 @@ namespace w3d5m1
             return returnString;
         }
 
-
         public void changeStringInList(string newScore, int frame)
         {
-            listFrameTwo[frame - 1] = newScore; 
+            listFrameTwo[frame - 1] = newScore;
         }
 
+        public void changeScoreInList(string newScore, int frame)
+        {
+            listFrameFour[frame - 1] = newScore; 
+        }
+
+        /*
         public void addFrameToTheStrings(string newScore, int frame)
         {
             //listFrame.Add(theFrame);
-            listFrameOne.Add(frameOne);
+            listFrameOne[frame] = newScore;
             listFrameTwo.Add(newScore);
             listFrameThree.Add(frameThree);
             listFrameFour.Add(frameFour);
             listFrameFive.Add(frameOne);
-        }
+        }*/
 
-        public void buildTheFrame()
+        //public void buildTheFrame()
 
          
 /*

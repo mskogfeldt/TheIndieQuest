@@ -24,7 +24,8 @@ namespace w3d5m1
              {
                  int newThrow = ThrowFirstBall();
                  bowlingResults[2][0] = newThrow;
-                 bowlingResults[2][1] = ThrowSecondBall(newThrow);
+        if (newThrow == 10) bowlingResults[2][1] = ThrowFirstBall();
+        else bowlingResults[2][1] = ThrowSecondBall(newThrow);
              }
              else if (bowlingResults[0][9] + bowlingResults[1][9] == 10)
              {
