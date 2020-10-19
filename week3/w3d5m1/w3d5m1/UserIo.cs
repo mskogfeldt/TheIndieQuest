@@ -46,10 +46,9 @@ Console.WriteLine($"Number of elements: {count}");*/
               Console.WriteLine("+-----+");
           }*/
 
-
-        public void tellPlayerHeMissed()
+        public void printStrike()
         {
-            Console.WriteLine("Ha MISS!");
+            Console.WriteLine("STRIKE!");
         }
 
         public void PrintPinns(List<int> pinnsToBePrinted)

@@ -5,38 +5,15 @@ using System.Text;
 namespace w3d5m1
 {
     public class FrameWork
-    {/*
-        string f = " ";
-        string s = " ";
-
-        //string theFrame = "FRAME ";
-        string frameOne   = "─┬─┬─┬";
-        string frameTwo   = " | | |";
-        string frameThree = " └─┴─┤";
-        string frameFour  = "     |";
-        string frameFive  = "─────┴";
-
-        string frontOne   = "┌";
-        string frontTwo   = "│";
-        string frontThree = "│";
-        string frontFour  = "│";
-        string frontFive  = "└";
-
-
-        string endOne   = "─┬─┬─┬─┐";
-        string endTwo   = " │ │ │ │";
-        string endThree = " └─┴─┴─│";
-        string endFour  = "       │";
-        string endFive  = "───────┘";
-        */
-
-
+    {
         List<string> listFrameOne = new List<string>   { "┌", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬", "─┬─┬─┬─┐" };
         List<string> listFrameTwo = new List<string>   { "│", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " | | |", " │ │ │ │" };
         List<string> listFrameThree = new List<string> { "│", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┤", " └─┴─┴─│" };
         List<string> listFrameFour = new List<string>  { "│", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "     |", "       │" };
         List<string> listFrameFive = new List<string>  { "└", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "─────┴", "───────┘" };
 
+        
+    
         public List<string> getListOne()
         {
             return listFrameOne;
@@ -62,14 +39,27 @@ namespace w3d5m1
             return listFrameFive;
         }
 
-        public string changeStringAfterThrow(string throwOne, string throwTwo)
+       /* public string takeIntMakeString(int number)
+        {
+            string word = number.ToString();
+            return word;
+        }
+
+        public string makeTheRightSymbolRollOne(int firstRoll)
+        {
+            if (firstRoll == 10) return "x";
+            if (firstRoll == 0) return "-";
+            return takeIntMakeString(firstRoll);
+        }*/
+
+        public string changeSymbolAfterThrow(string throwOne, string throwTwo)
         {
             string returnString = "";
             returnString += " |" + throwOne + "|" + throwTwo + "|";
             return returnString;       
         }
 
-        public string changeStringAfterThrowEndFrame(string throwOne, string throwTwo, string ThrowThree)
+        public string changeSymbolAfterThrowEndFrame(string throwOne, string throwTwo, string ThrowThree)
         {
             string returnString = "";
             returnString += " |" + throwOne + "|" + throwTwo + "|" + ThrowThree + "|";
@@ -94,14 +84,14 @@ namespace w3d5m1
             return returnString;
         }
 
-        public void changeStringInList(string newScore, int frame)
+        public void changeStymbolInList(string newScore, int frame)
         {
-            listFrameTwo[frame - 1] = newScore;
+            listFrameTwo[frame] = newScore;
         }
 
         public void changeScoreInList(string newScore, int frame)
         {
-            listFrameFour[frame - 1] = newScore; 
+            listFrameFour[frame] = newScore; 
         }
 
         /*
@@ -117,13 +107,36 @@ namespace w3d5m1
 
         //public void buildTheFrame()
 
-         
-/*
-        public void addFrame(List<string> frameList, string framePart, string trowOne, string trowTwo, int frame)
-        {
-            frameList
-        }*/
 
-       
+        /*
+                public void addFrame(List<string> frameList, string framePart, string trowOne, string trowTwo, int frame)
+                {
+                    frameList
+                }*/
+        /*
+                string f = " ";
+                string s = " ";
+
+                //string theFrame = "FRAME ";
+                string frameOne   = "─┬─┬─┬";
+                string frameTwo   = " | | |";
+                string frameThree = " └─┴─┤";
+                string frameFour  = "     |";
+                string frameFive  = "─────┴";
+
+                string frontOne   = "┌";
+                string frontTwo   = "│";
+                string frontThree = "│";
+                string frontFour  = "│";
+                string frontFive  = "└";
+
+
+                string endOne   = "─┬─┬─┬─┐";
+                string endTwo   = " │ │ │ │";
+                string endThree = " └─┴─┴─│";
+                string endFour  = "       │";
+                string endFive  = "───────┘";
+                */
+
     }
 }

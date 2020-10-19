@@ -8,18 +8,41 @@ namespace w3d5m1
     {
         public int score = 0;
         Random random = new Random();
+        public List<string> strikeOne;
+        public List<string> strikeTwo;
+        public List<string> strikeThree;
+        public List<string> strikeFour;
+        public List<string> strikeFive;
+        public List<string> strikeSix;
+        public List<string> strikeSeven;
+        public List<string> strikeEight;
+        public List<string> strikeNine;
+        public List<string> strikeTen;
+       
+        public List<string> spareOne;
+        public List<string> spareTwo;
+        public List<string> spareThree;
+        public List<string> spareFour;
+        public List<string> spareFive;
+        public List<string> spareSix;
+        public List<string> spareSeven;
+        public List<string> spareEight;
+        public List<string> spareNine;
+        public List<string> spareTen;
 
-        public void addToScore(int pointsEarned)
-        {
-            score += pointsEarned;
-        }
 
-/*
-        static int KnockPinOnPath(int path, List<int> pinsStanding)
-        {
-            return 0;
-        }*/
+        /*
+                public void addToScore(int pointsEarned)
+                {
+                    score += pointsEarned;
+                }
 
+        /*
+                static int KnockPinOnPath(int path, List<int> pinsStanding)
+                {
+                    return 0;
+                }*/
+        public 
 
         public int calculateScoreFirstThrow(List<int> standingPinns)
         {
@@ -41,6 +64,18 @@ namespace w3d5m1
 
             return results - alreadyKnockedDown;
         }
+
+        public int returnTotalScore(int[] pointsForEachRound)
+        {
+            int totalPonts = 0;
+            foreach (int frame in pointsForEachRound)
+            {
+                totalPonts += frame;
+            }
+            return totalPonts;
+        }
+
+        public int
 /*
         public int throwBall(int lane)
         {
@@ -150,6 +185,17 @@ namespace w3d5m1
             else return " ";
         }
 
+     /*   public int calculateScoreForFrame(int[][] bowlingResults, int frame)
+        {
+            int points = bowlingResults[0][frame - 1] + bowlingResults[1][frame - 1];
+            if (frame > 2) 
+            {
+                if (bowlingResults[0][frame - 2] == 10 && bowlingResults[0][frame - 3] == 10) points +=
+
+            } 
+            else
+        }*/
+        
 
         
     }

@@ -6,7 +6,20 @@ namespace w3d5m1
 {
     class Game
     {
+
+
+
+
+        
+        public int[][] bowlingResults = new int[3][];
+        public bowlingResults[0] = new int[10];
+        public bowlingResults[1] = new int[10];
+        public bowlingResults[2] = new int[2];
+
+
         /*
+
+        
          *   var random = new Random();
 
              int[][] bowlingResults = new int[3][];
