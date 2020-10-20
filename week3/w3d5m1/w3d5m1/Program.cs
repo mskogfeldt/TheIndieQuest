@@ -40,25 +40,28 @@ namespace w3d5m1
                 userIo.printGraphicsForTrowingTheBall();
             }
 
-            void calculateExtraPointsForEarlierStrikesAndSparrs(int frame)
+            void calculateExtraPointsSparrLastFrameAndStrikeToFrameAway(int frame)
             {
                 if (frame > 2 && bowlingResults[0][frame - 3] == 10 && bowlingResults[0][frame - 2] == 10)
                 {
-                    bowlingResults[0][frame - 3] += bowlingResults[0][frame - 1] + bowlingResults[0][frame - 2];
-                    pointsForEachRound[frame - 3] += bowlingResults[0][frame - 1] + bowlingResults[0][frame - 1];
+                    pointsForEachRound[frame - 3] += bowlingResults[0][frame - 2] + bowlingResults[0][frame - 1];
                 }
-                else if (frame > 1 && bowlingResults[0][frame - 2] == 10 && bowlingResults[0][frame - 1] != 10)
+
+                else if (frame > 1 && bowlingResults[0][frame - 2] + bowlingResults[1][frame - 2] == 10 && bowlingResults[0][frame - 2] != 10)
                 {
-                    bowlingResults[0][frame - 2] += bowlingResults[0][frame - 1] + bowlingResults[1][frame - 1];
-                    pointsForEachRound[frame - 2] += bowlingResults[0][frame - 1];
-                }
-                else if (frame > 1 && bowlingResults[0][frame - 2] + bowlingResults[1][frame - 2] == 10)
-                {
-                    bowlingResults[0][frame - 2] += bowlingResults[0][frame - 1];
                     pointsForEachRound[frame - 2] += bowlingResults[0][frame - 1];
                 }
             }
-           
+
+            void calculateExtraPointsStrikeOneFrameAway(int frame)
+            {
+                if (frame > 1 && bowlingResults[0][frame - 2] == 10 && bowlingResults[0][frame - 1] != 10)
+                {
+                    pointsForEachRound[frame - 2] += bowlingResults[0][frame - 1];
+                    pointsForEachRound[frame - 2] += bowlingResults[1][frame - 1];
+                }           
+            }
+
 
             void checkIfUpdateForScorboardDueToEarlierStriekesAndSparres(int frame)
             {
@@ -70,7 +73,7 @@ namespace w3d5m1
                 {
                     updateScoreBoard(frame - 1);
                 }
-                else if (frame > 1 && bowlingResults[0][frame - 2] + bowlingResults[1][frame - 2] == 10)
+                else if (frame > 1 && bowlingResults[0][frame - 2] + bowlingResults[1][frame - 2] == 10 && bowlingResults[0][frame - 2] != 10)
                 {
                     updateScoreBoard(frame - 1);
                 }
@@ -115,14 +118,14 @@ namespace w3d5m1
                 // Throw One!
                 int laneToThrowTheBall = userIo.letPlayerChoseWhereToTrowTheBall();
                 service.knockPins(pins, laneToThrowTheBall, 0);
-                //int result = service.calculateScoreFirstThrow(pins);
-                int result = 10;
+                int result = service.calculateScoreFirstThrow(pins);
+               // int result = 10;
                 /**/
                 bowlingResults[0][frame - 1] = result;
                 pointsForEachRound[frame - 1] += result;
                 /**/
                 string firstResultSymbol = service.makeTheRightSymbolRollOne(result);
-                calculateExtraPointsForEarlierStrikesAndSparrs(frame);
+                calculateExtraPointsSparrLastFrameAndStrikeToFrameAway(frame);
                 checkIfUpdateForScorboardDueToEarlierStriekesAndSparres(frame);
                 if (frame < 10)
                 {
@@ -148,7 +151,7 @@ namespace w3d5m1
                     pointsForEachRound[frame - 1] += resultForSecondBall;
                     /**/
                     string secondResultSymbol = service.makeTheRightSymbolRollTwo(result, resultForSecondBall);
-                    calculateExtraPointsForEarlierStrikesAndSparrs(frame);
+                    calculateExtraPointsStrikeOneFrameAway(frame);
                     checkIfUpdateForScorboardDueToEarlierStriekesAndSparres(frame);
                     if (frame < 10)
                     {
@@ -182,8 +185,8 @@ namespace w3d5m1
                     string firstExtraResultSymbol = service.makeTheRightSymbolRollOne(resultForFirstExtraBall);
                     string firstExtraResultCompleteString = scoreBoard.changeSymbolAfterThrowEndFrame("x", firstExtraResultSymbol, throwNotDone);
                     scoreBoard.changeStymbolInList(firstExtraResultCompleteString, frame);
-                    //calculateExtraPointsForEarlierStrikesAndSparrs(frame + 1);
-                    calculateExtraPointsForEarlierStrikesAndSparrs(frame);
+                    calculateExtraPointsStrikeOneFrameAway(frame + 1);
+                   // calculateExtraPointsForEarlierStrikesAndSparrs(frame);
                     checkIfUpdateForScorboardDueToEarlierStriekesAndSparres(frame + 1);
 
                     // If first extra roll was a strike, here the second extra roll starts
