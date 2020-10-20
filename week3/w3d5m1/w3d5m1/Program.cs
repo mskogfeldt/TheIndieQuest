@@ -49,13 +49,19 @@ namespace w3d5m1
                 userIo.PrintPinns(pins);
                 userIo.printGraphicsForTrowingTheBall();
             }
+            /*
+                        calculateExtraPointsForEarlierStrikesTwoInARow(int frame)
+                            {
+
+                        }*/
+            
 
             void calculateExtraPointsForEarlierStrikesAndSparrs(int frame)
             {
                 if (frame > 2 && bowlingResults[0][frame - 3] == 10 && bowlingResults[0][frame - 2] == 10)
                 {
-                    bowlingResults[0][frame - 3] += bowlingResults[0][frame - 1];
-                    pointsForEachRound[frame - 3] += bowlingResults[0][frame - 1];
+                    bowlingResults[0][frame - 3] += bowlingResults[0][frame - 1] + bowlingResults[0][frame - 2];
+                    pointsForEachRound[frame - 3] += bowlingResults[0][frame - 1] + bowlingResults[0][frame - 1];
                 }
                 else if (frame > 1 && bowlingResults[0][frame - 2] == 10 && bowlingResults[0][frame - 1] != 10)
                 {
@@ -74,15 +80,15 @@ namespace w3d5m1
             {
                 if (frame > 2 && bowlingResults[0][frame - 3] == 10 && bowlingResults[0][frame - 2] == 10)
                 {
-                    updateScoreBoard(frame - 3);
+                    updateScoreBoard(frame - 2);
                 }
                 else if (frame > 1 && bowlingResults[0][frame - 2] == 10 && bowlingResults[0][frame - 1] != 10)
                 {
-                    updateScoreBoard(frame - 2);
+                    updateScoreBoard(frame - 1);
                 }
                 else if (frame > 1 && bowlingResults[0][frame - 2] + bowlingResults[1][frame - 2] == 10)
                 {
-                    updateScoreBoard(frame - 2);
+                    updateScoreBoard(frame - 1);
                 }
             }
             /*string secondResultCompleteString = scoreBoard.changeSymbolAfterThrow(firstResultSymbol, secondResultSymbol);
@@ -127,8 +133,8 @@ namespace w3d5m1
 
                 int laneToThrowTheBall = userIo.letPlayerChoseWhereToTrowTheBall();
                 service.knockPins(pins, laneToThrowTheBall, 0);
-                int result = service.calculateScoreFirstThrow(pins);
-
+                //int result = service.calculateScoreFirstThrow(pins);
+                int result = 10;
                 bowlingResults[0][frame - 1] = result;
                 pointsForEachRound[frame - 1] += result;
                 string firstResultSymbol = service.makeTheRightSymbolRollOne(result);
@@ -150,6 +156,7 @@ namespace w3d5m1
                     int laneToThrowTheSecondBall = userIo.letPlayerChoseWhereToTrowTheBall();
                     service.knockPins(pins, laneToThrowTheSecondBall, 0);
                     int resultForSecondBall = service.calculateScoreSecondAndThirdThrow(pins, result);
+                   
                     bowlingResults[1][frame - 1] = resultForSecondBall;
                     pointsForEachRound[frame - 1] += resultForSecondBall;
 
@@ -166,7 +173,6 @@ namespace w3d5m1
                     {
                         string secondResultCompleteString = scoreBoard.changeSymbolAfterThrowEndFrame(firstResultSymbol, secondResultSymbol, throwNotDone);
                         scoreBoard.changeStymbolInList(secondResultCompleteString, frame);
-                       
                     }
                     
                     if (result + resultForSecondBall != 10)
@@ -181,27 +187,26 @@ namespace w3d5m1
                         service.knockPins(pinsForFirstExtraTry, laneToThrowTheFirstExtraBall, 0);
                         int resultForFirstExtraBall = service.calculateScoreFirstThrow(pinsForFirstExtraTry);
                         bowlingResults[0][10] = resultForFirstExtraBall;
-                        pointsForEachRound[frame - 1] += result;
+                        pointsForEachRound[frame - 1] += resultForFirstExtraBall;
                         string firstExtraResultSymbol = service.makeTheRightSymbolRollOne(resultForFirstExtraBall);
                         string firstExtraResultCompleteString = scoreBoard.changeSymbolAfterThrowEndFrame("x", firstExtraResultSymbol, throwNotDone);
                         scoreBoard.changeStymbolInList(firstExtraResultCompleteString, frame);
-                        calculateExtraPointsForEarlierStrikesAndSparrs(frame);
-                        checkIfUpdateForScorboardDueToEarlierStriekesAndSparres(frame);
-
+                        calculateExtraPointsForEarlierStrikesAndSparrs(frame + 1);
+                        checkIfUpdateForScorboardDueToEarlierStriekesAndSparres(frame + 1);
 
                         if (resultForFirstExtraBall == 10)
                         {
-                            frame++;
+                            //frame++;
                             presentBeforeThrowing(pinsForSecondExtraTry);
                             int laneToThrowTheSecondExtraBall = userIo.letPlayerChoseWhereToTrowTheBall();
                             service.knockPins(pinsForSecondExtraTry, laneToThrowTheSecondExtraBall, 0);
                             int resultForSecondExtraBall = service.calculateScoreFirstThrow(pinsForSecondExtraTry);
                             bowlingResults[0][11] = resultForSecondExtraBall;
-                            pointsForEachRound[frame - 2] += result;
+                            pointsForEachRound[frame - 1] += result;
 
                             string secondExtraResultSymbol = service.makeTheRightSymbolRollOne(resultForSecondExtraBall);
                             string secondExtraResultCompleteString = scoreBoard.changeSymbolAfterThrowEndFrame("x", firstExtraResultSymbol, secondExtraResultSymbol);
-                            scoreBoard.changeStymbolInList(secondExtraResultCompleteString, frame);
+                            scoreBoard.changeStymbolInList(secondExtraResultCompleteString, frame - 1);
                             updateScoreBoard(frame);
                         }
                         else
@@ -222,21 +227,25 @@ namespace w3d5m1
                     }
                     else if (frame == 10 && bowlingResults[0][9] + bowlingResults[1][9] == 10)
                     {
-                        string firstNumberForDisplay = service.takeIntMakeString(bowlingResults[0][9]);
-                        string secondNumberForDisplay = service.takeIntMakeString(bowlingResults[1][9]);
+                       
+                        presentBeforeThrowing(pinsForFirstExtraTry);
+                        string firstNumberForDisplay = scoreBoard.getFirstSymbolFrameTen();
+                        string secondNumberForDisplay = scoreBoard.getSecondSymbolFrameTen();
+                       
                         int laneToThrowTheFirstExtraBall = userIo.letPlayerChoseWhereToTrowTheBall();
                         service.knockPins(pinsForFirstExtraTry, laneToThrowTheFirstExtraBall, 0);
                         int resultForFirstExtraBall = service.calculateScoreFirstThrow(pinsForFirstExtraTry);
                         bowlingResults[0][10] = resultForFirstExtraBall;
-                        pointsForEachRound[frame - 1] += result;
+                        pointsForEachRound[frame - 1] += resultForFirstExtraBall;
                         string firstExtraResultSymbol = service.makeTheRightSymbolRollOne(resultForFirstExtraBall);
                         string firstExtraResultCompleteString = scoreBoard.changeSymbolAfterThrowEndFrame(firstNumberForDisplay, secondNumberForDisplay, firstExtraResultSymbol);
                         scoreBoard.changeStymbolInList(firstExtraResultCompleteString, frame);
                         updateScoreBoard(frame);
                     }
-                    
                 }
             }
+
+           /*void playBounudRound()*/
         }
     }
 }

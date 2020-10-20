@@ -55,6 +55,18 @@ namespace w3d5m1
             return takeIntMakeString(firstRoll);
         }*/
 
+        public string getFirstSymbolFrameTen()
+        {
+            string frameTwo = listFrameTwo[9];
+            return frameTwo.Substring(2,1);
+        }
+
+        public string getSecondSymbolFrameTen()
+        {
+            string frameTwo = listFrameTwo[9];
+            return frameTwo.Substring(4, 1);
+        }
+
         public string changeSymbolAfterThrow(string throwOne, string throwTwo)
         {
             string returnString = "";
