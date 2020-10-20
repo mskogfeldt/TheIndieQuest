@@ -6,43 +6,18 @@ namespace w3d5m1
 {
     class Service
     {
-        public int score = 0;
+        //public int score = 0;
         Random random = new Random();
-        public List<string> strikeOne;
-        public List<string> strikeTwo;
-        public List<string> strikeThree;
-        public List<string> strikeFour;
-        public List<string> strikeFive;
-        public List<string> strikeSix;
-        public List<string> strikeSeven;
-        public List<string> strikeEight;
-        public List<string> strikeNine;
-        public List<string> strikeTen;
-       
-        public List<string> spareOne;
-        public List<string> spareTwo;
-        public List<string> spareThree;
-        public List<string> spareFour;
-        public List<string> spareFive;
-        public List<string> spareSix;
-        public List<string> spareSeven;
-        public List<string> spareEight;
-        public List<string> spareNine;
-        public List<string> spareTen;
+     /*   public int[] pointsForEachRound = new int[10];
+        public int[] totalPoints = new int[10];
 
 
-        /*
-                public void addToScore(int pointsEarned)
-                {
-                    score += pointsEarned;
-                }
-
-        /*
-                static int KnockPinOnPath(int path, List<int> pinsStanding)
-                {
-                    return 0;
-                }*/
-        public 
+        public int[][] bowlingResults = new int[3][]
+        {
+            new int[10],
+            new int[10],
+            new int[2]
+        };*/
 
         public int calculateScoreFirstThrow(List<int> standingPinns)
         {
@@ -75,7 +50,17 @@ namespace w3d5m1
             return totalPonts;
         }
 
-        public int
+        public int returnTotalScoreUpToPoint(int[] pointsForEachRound, int frame)
+        {
+            int pointsToWrite = 0;
+            for (int i = 0; i < frame; i++)
+            {
+                pointsToWrite += pointsForEachRound[i];
+            }
+            return pointsToWrite;
+        }
+
+        
 /*
         public int throwBall(int lane)
         {
