@@ -8,19 +8,21 @@ namespace w5d4m1
         static void Main(string[] args)
         {
 
-
-            string d6 = "1d6 ";
+            string d6 = "d6 ";
+            string Oned6 = "1d6 ";
             string twoD8 = "2d8 ";
             string threeD6PlusEight = "3d6+8 ";
 
             int testOne = DiceRoll(d6);
+            int testOneB = DiceRoll(Oned6);
             int testTwo = DiceRoll(twoD8);
             int testThree = DiceRoll(threeD6PlusEight);
 
             Console.WriteLine(d6 + " " + testOne);
+            Console.WriteLine(Oned6 + " " + testOneB);
             Console.WriteLine(twoD8 + " " + testTwo);
             Console.WriteLine(threeD6PlusEight + " " + testThree);
-            //char[] splitting = { 'd', '+', '-' };
+            char[] splitting = { 'd', '+', '-' };
 
 
         }
@@ -43,11 +45,9 @@ namespace w5d4m1
             string[] sortedNumbers = TakeStringMakeArray(diceNotation);
             if (sortedNumbers.Length == 3 && DetectMinus(diceNotation) == true) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[0]), takeStringMakeInt(sortedNumbers[2]) * -1);
             else if (sortedNumbers.Length == 3 && DetectPlus(diceNotation) == true) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[0]), takeStringMakeInt(sortedNumbers[2]));
-            if (sortedNumbers.Length == 2 && DetectMinus(diceNotation) == true) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[2]) * -1);
-            if (sortedNumbers.Length == 2 && DetectPlus(diceNotation) == true) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[2]));
-            if (sortedNumbers.Length == 2 && DetectPlus(diceNotation) == false && DetectMinus(diceNotation) == false) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[0]));
-            if (sortedNumbers.Length == 1) return DiceRoll(takeStringMakeInt(sortedNumbers[1]));
-            return 8888;
+            else if (sortedNumbers.Length == 2 && DetectMinus(diceNotation) == true) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[2]) * -1);
+            else if (sortedNumbers.Length == 2 && DetectPlus(diceNotation) == true) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[2]));
+            else return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[0]));
         }
 
 
@@ -77,6 +77,11 @@ namespace w5d4m1
         public static string[] TakeStringMakeArray(string diceNotation)
         {
             string[] sortedNumbers = diceNotation.Split(splitting);
+            if (sortedNumbers[0] == "") sortedNumbers[0] = "1";
+            foreach(string s in sortedNumbers)
+            {
+                Console.WriteLine(s);
+            }
             return sortedNumbers;
         }
     }
