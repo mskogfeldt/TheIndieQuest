@@ -6,7 +6,7 @@ namespace w5d4m2
     {
         static void Main(string[] args)
         {
-
+           
             string de6 = "d6";
             string twoD6 = "2d6";
             string d6Plus4 = "d6+4";
@@ -14,7 +14,6 @@ namespace w5d4m2
             string thirtyFour = "34";
             string ad6 = "ad6";
             string bunch = "33d4*2";
-
 
             Console.WriteLine(de6);
             CollectionOfMethodsToCalculateTextToDiceNotation(de6);
@@ -30,26 +29,17 @@ namespace w5d4m2
             CollectionOfMethodsToCalculateTextToDiceNotation(ad6);
             Console.WriteLine("33d4*2");
             CollectionOfMethodsToCalculateTextToDiceNotation(bunch);
-
-            
-
-
-
-
         }
 
         public static Random random = new Random();
         public static char[] splitting = { 'd', '+', '-' };
-
-
-
 
         public static void CollectionOfMethodsToCalculateTextToDiceNotation(string text)
         {
             if (checkSoThereAreNoDoublesOfSertainAscii(text) == true && IsItemsInOrder(text) == true && IsAsciiCorrectForText(text) == true)
             {
                 int diceNotationOfText = DiceRoll(text);
-                Console.WriteLine(diceNotationOfText);
+                Console.WriteLine("Result is " + diceNotationOfText);
             }
             else Console.WriteLine($"Can't throw {text}, it is not in standard dice notation.");
         }
@@ -75,24 +65,24 @@ namespace w5d4m2
         {
             if (DetectNumberOfMinus(text) > 0)
             {
-                if (FindIndexOfLastD(text) < FindIndexOfLastNumber(text) && FindIndexOfLastD(text) < FindIndexOfMinus(text) && FindIndexOfMinus(text) < FindIndexOfLastNumber(text)) return true;
+                if (FindIndexOfD(text) < FindIndexOfLastNumber(text) && FindIndexOfD(text) < FindIndexOfMinus(text) && FindIndexOfMinus(text) < FindIndexOfLastNumber(text)) return true;
             }
             else if (DetectNumberOfPlus(text) > 0)
             {
-                if (FindIndexOfLastD(text) < FindIndexOfLastNumber(text) && FindIndexOfLastD(text) < FindIndexOfPlus(text) && FindIndexOfPlus(text) < FindIndexOfLastNumber(text)) return true;
+                if (FindIndexOfD(text) < FindIndexOfLastNumber(text) && FindIndexOfD(text) < FindIndexOfPlus(text) && FindIndexOfPlus(text) < FindIndexOfLastNumber(text)) return true;
             }
-            else if (FindIndexOfLastD(text) < FindIndexOfLastNumber(text)) return true;
+            else if (FindIndexOfD(text) < FindIndexOfLastNumber(text)) return true;
             return false;
         }
 
-        public static int FindIndexOfLastD(string text)
+        public static int FindIndexOfD(string text)
         {
             int lastD = 0;
             for (int i = 0; i < text.Length; i++)
             {
                 if (text[i] == 'd') lastD = i;
             }
-            return lastD + 1;
+            return lastD;
         }
 
         public static int FindIndexOfMinus(string text)
@@ -100,9 +90,9 @@ namespace w5d4m2
             int lastMinus = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i] >= '1' && text[i] <= '9' && text[i] % 2 == 0) lastMinus = i;
+                if (text[i] == '-') lastMinus = i;
             }
-            return lastMinus + 1;
+            return lastMinus;
         }
 
         public static int FindIndexOfPlus(string text)
@@ -110,29 +100,31 @@ namespace w5d4m2
             int lastPlus = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i] >= '1' && text[i] <= '9' && text[i] % 2 == 0) lastPlus = i;
+                if (text[i] == '+') lastPlus = i;
             }
-            return lastPlus + 1;
+         
+            return lastPlus;
         }
 
         public static int FindIndexOfLastNumber(string text)
         {
-            int lastD = 0;
+            int lastNumber = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i] >= '1' && text[i] <= '9' && text[i] % 2 == 0) lastD = i;
+                if (text[i] >= '1' && text[i] <= '9' && text[i] % 2 == 0) lastNumber = i;
             }
-            return lastD + 1;
+ 
+            return lastNumber + 1;
         }
 
         public static int DetectNumberOfD(string text)
         {
-            int count = 0;
+            int numberOfDs = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i] == 'd') count++;
+                if (text[i] == 'd') numberOfDs++;
             }
-            return count;
+            return numberOfDs;
         }
 
         public static int DetectNumberOfMinus(string text)
@@ -163,6 +155,7 @@ namespace w5d4m2
         public static string[] TakeStringMakeArray(string diceNotation)
         {
             string[] sortedNumbers = diceNotation.Split(splitting);
+            if (sortedNumbers[0] == "") sortedNumbers[0] = "1";
             return sortedNumbers;
         }
 
@@ -182,11 +175,9 @@ namespace w5d4m2
             string[] sortedNumbers = TakeStringMakeArray(diceNotation);
             if (sortedNumbers.Length == 3 && DetectNumberOfMinus(diceNotation) == 1) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[0]), takeStringMakeInt(sortedNumbers[2]) * -1);
             else if (sortedNumbers.Length == 3 && DetectNumberOfPlus(diceNotation) == 1) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[0]), takeStringMakeInt(sortedNumbers[2]));
-            if (sortedNumbers.Length == 2 && DetectNumberOfMinus(diceNotation) == 1) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[2]) * -1);
-            if (sortedNumbers.Length == 2 && DetectNumberOfPlus(diceNotation) == 1) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[2]));
-            if (sortedNumbers.Length == 2 && DetectNumberOfMinus(diceNotation) + DetectNumberOfPlus(diceNotation) == 0) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[0]));
-            if (sortedNumbers.Length == 1) return DiceRoll(takeStringMakeInt(sortedNumbers[1]));
-            return 8888;
+            else if (sortedNumbers.Length == 2 && DetectNumberOfMinus(diceNotation) == 1) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[2]) * -1);
+            else if (sortedNumbers.Length == 2 && DetectNumberOfPlus(diceNotation) == 1) return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[2]));
+            else return DiceRoll(takeStringMakeInt(sortedNumbers[1]), takeStringMakeInt(sortedNumbers[0]));
         }
     }
 }
