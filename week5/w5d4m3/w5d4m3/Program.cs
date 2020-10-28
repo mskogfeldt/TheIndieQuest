@@ -10,16 +10,17 @@ namespace w5d4m3
         {
 
             string de6 = "To use the magic potion of dragon breath, first roll d8. If you 3d3 4d4 roll 2 or higher, you manage to open the potion. Now roll 5d4+5 to see how many seconds the spell will last. Finally, the damage of the flames will be 2d6 per second.";
-            readTheText(de6, 0);
+            readTheText(de6);
         }
 
         public static Random random = new Random();
         public static char[] splitting = { 'd', '+', '-' };
 
-        public static void readTheText(string text, int indexToStartFrom)
+        public static void readTheText(string text)
         {
+            int numberOfThrows = 0;
             int diceNotationCount = 0;
-            for (int i = indexToStartFrom; i < text.Length; i++)
+            for (int i = 0; i < text.Length; i++)
             {
                 if (text[i] == 'd' || text[i] >= '1' && text[i] <= '9')
                 {
@@ -28,10 +29,13 @@ namespace w5d4m3
                     {
                         i += stringThatPossiblyIsDiceNotation.Length;
                         diceNotationCount++;
+                        numberOfThrows += CalculateTheNumberOfTimesDiceIsThrownInDiceNotation(stringThatPossiblyIsDiceNotation);
                     }
                 }
             }
             Console.WriteLine(diceNotationCount + " standard dice notations present.");
+            Console.WriteLine("The player will have to perform " + numberOfThrows + " rolls.");
+            //The player will have to perform 8 rolls.
         }
 
         public static string CheckIfDiceNotation(string text, int indexOfStart)
@@ -56,11 +60,27 @@ namespace w5d4m3
             return stringOfPossibleDiceNotation;
         }
 
+        public static int CalculateTheNumberOfTimesDiceIsThrownInDiceNotation(string text)
+        {
+            string totalNumberStringForm = "";
+            //int numberOfThrows = 0;
+            if (text[0] == 'd') return 1;
+            else
+            {
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (text[i] >= '1' && text[i] <= '9') totalNumberStringForm += text[i];
+                    else break;
+                }
+            }
+            return Int32.Parse(totalNumberStringForm);//takeStringMakeInt(totalNumberStringForm);
+        }
+        
+
         public static bool CollectionOfMethodsToCalculateTheNumberOfDiceNotations(string text)
         {
-            if (checkSoThereAreNoDoublesOfCertainAscii(text) == true && IsItemsInOrder(text) == true /*&& IsAsciiCorrectForText(text) == true*/)
+            if (checkSoThereAreNoDoublesOfCertainAscii(text) == true && IsItemsInOrder(text) == true)
             {
-                string firstItem = string[0];
                 Console.WriteLine(text);
                 return true;
             }
