@@ -35,7 +35,6 @@ namespace w5d4m3
             }
             Console.WriteLine(diceNotationCount + " standard dice notations present.");
             Console.WriteLine("The player will have to perform " + numberOfThrows + " rolls.");
-            //The player will have to perform 8 rolls.
         }
 
         public static string CheckIfDiceNotation(string text, int indexOfStart)
@@ -63,7 +62,6 @@ namespace w5d4m3
         public static int CalculateTheNumberOfTimesDiceIsThrownInDiceNotation(string text)
         {
             string totalNumberStringForm = "";
-            //int numberOfThrows = 0;
             if (text[0] == 'd') return 1;
             else
             {
@@ -75,7 +73,6 @@ namespace w5d4m3
             }
             return Int32.Parse(totalNumberStringForm);//takeStringMakeInt(totalNumberStringForm);
         }
-        
 
         public static bool CollectionOfMethodsToCalculateTheNumberOfDiceNotations(string text)
         {
