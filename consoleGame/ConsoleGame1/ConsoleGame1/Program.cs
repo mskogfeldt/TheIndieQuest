@@ -10,6 +10,17 @@ namespace ConsoleGame1
             int height = 50;
 
             drawTheSquare(width, height);
+
+            Console.CursorVisible = false;
+
+            SpaceShip ship = new SpaceShip(10, 25, 1);
+            while (true)
+            {
+                ship.MoveShip();
+                ship.DrawTheSpaceShip();
+
+                System.Threading.Thread.Sleep(50);
+            }
         }
 
         public static void drawTheSquare(int width, int height)

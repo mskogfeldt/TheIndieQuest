@@ -1,0 +1,41 @@
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ConsoleGame1
+{
+    public class SpaceShip : GameObject 
+    {
+        public List<string> weapons = new List<string> { };
+        
+        public SpaceShip(/*int hitPoints,*/ int locationXCoordinates, int lokationYCoordinates, float speedOfSpaceShip)
+        {
+            locationX = locationXCoordinates;
+            locationY = lokationYCoordinates;
+            speed = speedOfSpaceShip;
+
+        }
+        //int someInt = (int)someFloat
+
+        public void DrawTheSpaceShip()
+        {
+            Console.SetCursorPosition((int)locationX,(int)locationY);
+            Console.Write("*");
+        }
+
+        public void MoveShip()
+        {
+            Console.SetCursorPosition((int)locationX, (int)locationY);
+            Console.Write(" ");
+
+            locationX++;
+        }
+
+        public void DeleteTheSpaceShip()
+        {
+
+        }
+
+    }
+}
