@@ -14,6 +14,8 @@ namespace ConsoleGame1
             locationX = locationXCoordinates;
             locationY = lokationYCoordinates;
             speed = speedOfSpaceShip;
+            velocityX = 0;
+            velocityY = 0;
 
         }
         //int someInt = (int)someFloat
@@ -28,8 +30,6 @@ namespace ConsoleGame1
         {
             Console.SetCursorPosition((int)locationX, (int)locationY);
             Console.Write(" ");
-
-            locationX++;
         }
 
         public void DeleteTheSpaceShip()
@@ -39,3 +39,4 @@ namespace ConsoleGame1
 
     }
 }
+

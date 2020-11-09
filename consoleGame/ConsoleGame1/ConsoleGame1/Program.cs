@@ -8,51 +8,23 @@ namespace ConsoleGame1
         {
             int width = 200;
             int height = 50;
+           // ConsoleKeyInfo info = Console.ReadKey();
 
-            drawTheSquare(width, height);
 
             Console.CursorVisible = false;
+            Game newGame = new Game();
 
-            SpaceShip ship = new SpaceShip(10, 25, 1);
+            newGame.drawTheSquare(width, height);
+
             while (true)
             {
-                ship.MoveShip();
-                ship.DrawTheSpaceShip();
-
+                newGame.RunTheGame();
                 System.Threading.Thread.Sleep(50);
+                Console.CursorVisible = false;
             }
+                   
         }
 
-        public static void drawTheSquare(int width, int height)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    if (y == 0 || y == height - 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        if (x == 0 || x == width - 1)
-                        {
-                            Console.Write("+");
-                        }
-                        else
-                        {
-                            Console.Write("-");
-                        }
-                    }
-                    else if (x == 0 || x == width - 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("|");
-                    }
-                    else
-                    {
-                        Console.Write(" ");
-                    }
-                }
-                Console.WriteLine();
-            }
-        }
+        
     }
 }
