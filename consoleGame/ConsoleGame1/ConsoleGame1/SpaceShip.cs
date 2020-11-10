@@ -23,12 +23,14 @@ namespace ConsoleGame1
         public void DrawTheSpaceShip()
         {
             Console.SetCursorPosition((int)locationX,(int)locationY);
+            Console.CursorVisible = false;
             Console.Write("*");
         }
 
-        public void MoveShip()
+        public void EraseImageOfShipsPreviousPosition()
         {
             Console.SetCursorPosition((int)locationX, (int)locationY);
+            Console.CursorVisible = false;
             Console.Write(" ");
         }
 

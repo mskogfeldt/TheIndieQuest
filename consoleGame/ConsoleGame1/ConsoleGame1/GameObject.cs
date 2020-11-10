@@ -18,18 +18,5 @@ namespace ConsoleGame1
             locationX += velocityX;
             locationY += velocityY;
         }
-       
-        
-        /*    public void DrawTheSpaceShip()
-         {
-             Console.SetCursorPosition((int)locationX, (int)locationY);
-             Console.Write("*");
-         }
-
-         public void MoveShip()
-         {
-             Console.SetCursorPosition((int)locationX, (int)locationY);
-             Console.Write(" ");
-         }*/
     }
 }

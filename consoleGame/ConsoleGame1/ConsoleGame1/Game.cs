@@ -7,7 +7,7 @@ namespace ConsoleGame1
     class Game
     {
         public ConsoleKeyInfo info;
-        public SpaceShip ship = new SpaceShip(10, 25, 1);
+        public SpaceShip playersShip = new SpaceShip(10, 25, 1);
 
         public void drawTheSquare(int width, int height)
         {
@@ -43,31 +43,132 @@ namespace ConsoleGame1
 
         public void RunTheGame()
         {
+            //System.Threading.Thread.Sleep(1000 / sv_settings.fps);
+            /*while (System.Console.KeyAvailable)
+				{
+					var _key = System.Console.ReadKey(true);*/
             bool keepOnTruckin = true;
-            info = Console.ReadKey(true);
-            ship.MoveShip();
-            
-                if (info.Key == ConsoleKey.LeftArrow)
+
+            while (keepOnTruckin == true)
+            {
+                //playersShip.EraseImageOfShipsPreviousPosition();
+                System.Threading.Thread.Sleep(1000 / 10);
+
+                while (System.Console.KeyAvailable)
                 {
-                    ship.velocityX--;
+                    var key = System.Console.ReadKey(true);
+                    switch (key.Key)
+                    {
+                        case System.ConsoleKey.LeftArrow:
+                            {
+                                playersShip.velocityX--;
+                            }
+                            break;
+                        case System.ConsoleKey.RightArrow:
+                            {
+                                playersShip.velocityX++;
+                            }
+                            break;
+                        case System.ConsoleKey.UpArrow:
+                            {
+                                playersShip.velocityY--;
+                            }
+                            break;
+                        case System.ConsoleKey.DownArrow:
+                            {
+                                playersShip.velocityY++;
+                            }
+                            break;
+
+                    }
+
+                    /*info = Console.ReadKey(true);
+                    if (info.Key == ConsoleKey.LeftArrow)
+                    {
+                        playersShip.velocityX--;
+                    }
+                    else if (info.Key == ConsoleKey.RightArrow)
+                    {
+                        playersShip.velocityX++;
+                    }
+                    else if (info.Key == ConsoleKey.UpArrow)
+                    {
+                        playersShip.velocityY--;
+                    }
+                    else if (info.Key == ConsoleKey.DownArrow)
+                    {
+                        playersShip.velocityY++;
+                    }
+                    else if (info.Key == ConsoleKey.Escape) keepOnTruckin = false;
+                    playersShip.MoveObject();
+                    playersShip.DrawTheSpaceShip();*/
+
                 }
-                else if (info.Key == ConsoleKey.RightArrow)
-                {
-                    ship.velocityX++;
-                }
-                else if (info.Key == ConsoleKey.UpArrow)
-                {
-                    ship.velocityY--;
-                }
-                else if (info.Key == ConsoleKey.DownArrow)
-                {
-                    ship.velocityY++;
-                }
-                else if (info.Key == ConsoleKey.Escape) keepOnTruckin = false;
-            ship.MoveObject();
-            ship.DrawTheSpaceShip();
-                
+                playersShip.EraseImageOfShipsPreviousPosition();
+                playersShip.MoveObject();
+                playersShip.DrawTheSpaceShip();
+            }
         }
+        /*
+         while (!sv_game_over)
+			{
+				MoveSnake();
+
+				System.Threading.Thread.Sleep(1000 / sv_settings.fps);
+
+				var _snake_direction_x = sv_snake_direction_x;
+
+				var _snake_direction_y = sv_snake_direction_y;
+
+				while (System.Console.KeyAvailable)
+				{
+					var _key = System.Console.ReadKey(true);
+
+					switch (_key.Key)
+					{
+						case System.ConsoleKey.LeftArrow:
+							{
+								if (sv_snake_direction_x != 1)
+								{
+									_snake_direction_x = -1;
+
+									_snake_direction_y = 0;
+								}
+							}
+							break;
+						case System.ConsoleKey.RightArrow:
+							{
+								if (sv_snake_direction_x != -1)
+								{
+									_snake_direction_x = 1;
+
+									_snake_direction_y = 0;
+								}
+							}
+							break;
+						case System.ConsoleKey.UpArrow:
+							{
+								if (sv_snake_direction_y != 1)
+								{
+									_snake_direction_x = 0;
+
+									_snake_direction_y = -1;
+								}
+							}
+							break;
+						case System.ConsoleKey.DownArrow:
+							{
+								if (sv_snake_direction_y != -1)
+								{
+									_snake_direction_x = 0;
+
+									_snake_direction_y = 1;
+								}
+							}
+							break;
+					}
+				}
+         */
     }
 }
 

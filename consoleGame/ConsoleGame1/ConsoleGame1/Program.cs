@@ -15,13 +15,13 @@ namespace ConsoleGame1
             Game newGame = new Game();
 
             newGame.drawTheSquare(width, height);
-
+/*
             while (true)
-            {
-                newGame.RunTheGame();
-                System.Threading.Thread.Sleep(50);
+            { */
                 Console.CursorVisible = false;
-            }
+                newGame.RunTheGame();
+               // System.Threading.Thread.Sleep(50);
+           //}
                    
         }
 
