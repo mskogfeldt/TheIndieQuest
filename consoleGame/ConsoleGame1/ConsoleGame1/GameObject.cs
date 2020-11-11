@@ -7,11 +7,11 @@ namespace ConsoleGame1
     public class GameObject
     {
        // public int hitPoints;
-        public float locationX;
-        public float locationY;
-        public float speed;
-        public float velocityX;
-        public float velocityY;
+        public float locationX { get; set; }
+        public float locationY { get; set; }
+        public float speed { get; set; }
+        public float velocityX { get; set; }
+        public float velocityY { get; set; }
 
         public void MoveObject()
         {

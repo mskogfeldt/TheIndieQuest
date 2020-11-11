@@ -6,8 +6,15 @@ namespace ConsoleGame1
 {
     class Game
     {
+        public Random random = new Random();
         public ConsoleKeyInfo info;
-        public SpaceShip playersShip = new SpaceShip(10, 25, 1);
+        public SpaceShip playersShip = new SpaceShip(5, 25/*, 1*/);
+        public Meteor meteor = new Meteor(80, 25, -1, 0);
+        public int[,] whereItemsAreOnScreen = new int[,] { };
+        public List<GameObject> itemsInPlay = new List<GameObject> { };
+        public List<SpaceShip> spaceShipsInPlay = new List<SpaceShip> { };
+        public List<Meteor> meteorsInPlay = new List<Meteor> { };
+
 
         public void drawTheSquare(int width, int height)
         {
@@ -40,16 +47,28 @@ namespace ConsoleGame1
                 Console.WriteLine();
             }
         }
+/*
+        public Meteor spawnMeteor()
+        {
+            int atleastTravelingOneDirection = random.Next(1, 10);
+            if()
+            int velocityX = random.Next(0,1)
+            Meteor meteor = new Meteor()
+
+        }*/
 
         public void RunTheGame()
         {
+            itemsInPlay.Add(meteor);
+            spaceShipsInPlay.Add(playersShip);
+            meteorsInPlay.Add(meteor);
             //System.Threading.Thread.Sleep(1000 / sv_settings.fps);
             /*while (System.Console.KeyAvailable)
 				{
 					var _key = System.Console.ReadKey(true);*/
-            bool keepOnTruckin = true;
+            bool gameOver = false;
 
-            while (keepOnTruckin == true)
+            while (gameOver == false)
             {
                 //playersShip.EraseImageOfShipsPreviousPosition();
                 System.Threading.Thread.Sleep(1000 / 10);
@@ -81,94 +100,50 @@ namespace ConsoleGame1
                             break;
 
                     }
-
-                    /*info = Console.ReadKey(true);
-                    if (info.Key == ConsoleKey.LeftArrow)
-                    {
-                        playersShip.velocityX--;
-                    }
-                    else if (info.Key == ConsoleKey.RightArrow)
-                    {
-                        playersShip.velocityX++;
-                    }
-                    else if (info.Key == ConsoleKey.UpArrow)
-                    {
-                        playersShip.velocityY--;
-                    }
-                    else if (info.Key == ConsoleKey.DownArrow)
-                    {
-                        playersShip.velocityY++;
-                    }
-                    else if (info.Key == ConsoleKey.Escape) keepOnTruckin = false;
-                    playersShip.MoveObject();
-                    playersShip.DrawTheSpaceShip();*/
-
                 }
                 playersShip.EraseImageOfShipsPreviousPosition();
-                playersShip.MoveObject();
+                playersShip.MoveObject(); 
                 playersShip.DrawTheSpaceShip();
+                meteor.EraseImageOfMeteorsPreviousPosition();
+                meteor.MoveObject();
+                meteor.DrawTheMeteor();
+                if (isColliton(playersShip, itemsInPlay) == true) gameOver = true;
+                if (gameOver == true) GameOver();
+
             }
         }
-        /*
-         while (!sv_game_over)
-			{
-				MoveSnake();
 
-				System.Threading.Thread.Sleep(1000 / sv_settings.fps);
+        public List<GameObject> createListOfObjectsColidingWithSertainObject()
+        {
+            List<GameObject> sdfsdf = new List<GameObject> { };
+            return sdfsdf;
+        }
 
-				var _snake_direction_x = sv_snake_direction_x;
+        public bool isColliton(SpaceShip playrShip, List<GameObject> gameObject)
+        {
+            foreach (GameObject objectInQuestion in gameObject)
+                {
+                if (objectInQuestion.locationX == playersShip.locationX && objectInQuestion.locationY == playersShip.locationY) return true;
+                }
+            return false;
+        }
 
-				var _snake_direction_y = sv_snake_direction_y;
+        public bool isEdge(List<GameObject> gameObject) 
+        {
+            foreach (GameObject objectInQuestion in gameObject)
+            {
+                if (objectInQuestion.locationX == playersShip.locationX && objectInQuestion.locationY == playersShip.locationY) return true;
+            }
+            return false;
+        }
 
-				while (System.Console.KeyAvailable)
-				{
-					var _key = System.Console.ReadKey(true);
 
-					switch (_key.Key)
-					{
-						case System.ConsoleKey.LeftArrow:
-							{
-								if (sv_snake_direction_x != 1)
-								{
-									_snake_direction_x = -1;
-
-									_snake_direction_y = 0;
-								}
-							}
-							break;
-						case System.ConsoleKey.RightArrow:
-							{
-								if (sv_snake_direction_x != -1)
-								{
-									_snake_direction_x = 1;
-
-									_snake_direction_y = 0;
-								}
-							}
-							break;
-						case System.ConsoleKey.UpArrow:
-							{
-								if (sv_snake_direction_y != 1)
-								{
-									_snake_direction_x = 0;
-
-									_snake_direction_y = -1;
-								}
-							}
-							break;
-						case System.ConsoleKey.DownArrow:
-							{
-								if (sv_snake_direction_y != -1)
-								{
-									_snake_direction_x = 0;
-
-									_snake_direction_y = 1;
-								}
-							}
-							break;
-					}
-				}
-         */
+        public void GameOver()
+        {
+            Console.Clear();
+            Console.WriteLine("GAME OVER!");
+        }
+       
     }
 }
 

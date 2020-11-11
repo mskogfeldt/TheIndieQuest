@@ -9,11 +9,11 @@ namespace ConsoleGame1
     {
         public List<string> weapons = new List<string> { };
         
-        public SpaceShip(/*int hitPoints,*/ int locationXCoordinates, int lokationYCoordinates, float speedOfSpaceShip)
+        public SpaceShip(/*int hitPoints,*/ int locationXCoordinates, int lokationYCoordinates/*, float speedOfSpaceShip*/)
         {
             locationX = locationXCoordinates;
             locationY = lokationYCoordinates;
-            speed = speedOfSpaceShip;
+          /*  speed = speedOfSpaceShip;*/
             velocityX = 0;
             velocityY = 0;
 
@@ -24,6 +24,7 @@ namespace ConsoleGame1
         {
             Console.SetCursorPosition((int)locationX,(int)locationY);
             Console.CursorVisible = false;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("*");
         }
 
