@@ -98,7 +98,6 @@ namespace ConsoleGame1
                                 playersShip.velocityY++;
                             }
                             break;
-
                     }
                 }
                 playersShip.EraseImageOfShipsPreviousPosition();
@@ -107,9 +106,9 @@ namespace ConsoleGame1
                 meteor.EraseImageOfMeteorsPreviousPosition();
                 meteor.MoveObject();
                 meteor.DrawTheMeteor();
-                if (isColliton(playersShip, itemsInPlay) == true) gameOver = true;
+                if (IsColliton(playersShip, itemsInPlay) == true) gameOver = true;
+                if (IsEdgePlayer(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
-
             }
         }
 
@@ -119,7 +118,7 @@ namespace ConsoleGame1
             return sdfsdf;
         }
 
-        public bool isColliton(SpaceShip playrShip, List<GameObject> gameObject)
+        public bool IsColliton(SpaceShip playrShip, List<GameObject> gameObject)
         {
             foreach (GameObject objectInQuestion in gameObject)
                 {
@@ -128,15 +127,20 @@ namespace ConsoleGame1
             return false;
         }
 
-        public bool isEdge(List<GameObject> gameObject) 
+        public bool IsEdge(List<GameObject> gameObject) 
         {
             foreach (GameObject objectInQuestion in gameObject)
             {
-                if (objectInQuestion.locationX == playersShip.locationX && objectInQuestion.locationY == playersShip.locationY) return true;
+                if (objectInQuestion.locationX == 1 || objectInQuestion.locationX == 200 || objectInQuestion.locationY == 1 || objectInQuestion.locationY == 50) return true;
             }
             return false;
         }
 
+        public bool IsEdgePlayer(SpaceShip spaceShip)
+        {
+            if (spaceShip.locationX == 1 || spaceShip.locationX == 200 || spaceShip.locationY == 1 || spaceShip.locationY == 50) return true;
+            return false;
+        }
 
         public void GameOver()
         {

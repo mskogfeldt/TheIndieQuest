@@ -7,6 +7,9 @@ namespace ConsoleGame1
 {
     public class SpaceShip : GameObject 
     {
+        // public string[] shapeII = new string[] { "  \[]\   ", ">[][][][]>", "/[]/" };
+
+        public string[] shape = new string[] { ">╔═╗- ", ">║+║>>", ">╚═╝- " };
         public List<string> weapons = new List<string> { };
         
         public SpaceShip(/*int hitPoints,*/ int locationXCoordinates, int lokationYCoordinates/*, float speedOfSpaceShip*/)
@@ -22,17 +25,24 @@ namespace ConsoleGame1
 
         public void DrawTheSpaceShip()
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition((int)locationX,(int)locationY);
             Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("*");
+            Console.WriteLine(shape[0]);
+            Console.SetCursorPosition((int)locationX, (int)locationY + 1);
+            Console.WriteLine(shape[1]);
+            Console.SetCursorPosition((int)locationX, (int)locationY + 2);
+            Console.WriteLine(shape[2]);
         }
 
         public void EraseImageOfShipsPreviousPosition()
         {
-            Console.SetCursorPosition((int)locationX, (int)locationY);
-            Console.CursorVisible = false;
-            Console.Write(" ");
+            for (int i = 0; i < shape.Length; i++)
+            {
+                Console.SetCursorPosition((int)locationX, (int)locationY + i);
+                Console.CursorVisible = false;
+                Console.Write("      ");
+            }
         }
 
         public void DeleteTheSpaceShip()
