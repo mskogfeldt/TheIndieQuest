@@ -11,12 +11,15 @@ namespace ConsoleGame1
 
         public string[] shape = new string[] { ">╔═╗- ", ">║+║>>", ">╚═╝- " };
         public List<string> weapons = new List<string> { };
+        public List<int> xnumbers;
+        public List<int> ynumbers;
         
-        public SpaceShip(/*int hitPoints,*/ int locationXCoordinates, int lokationYCoordinates/*, float speedOfSpaceShip*/)
+        public SpaceShip(/*int hitPoints,*/ int locationXCoordinates, int lokationYCoordinates/*, string[] shapeForObject, float speedOfSpaceShip*/)
         {
             locationX = locationXCoordinates;
             locationY = lokationYCoordinates;
-          /*  speed = speedOfSpaceShip;*/
+            /*  speed = speedOfSpaceShip;*/
+           // shape = shapeForObject;
             velocityX = 0;
             velocityY = 0;
 

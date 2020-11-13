@@ -8,13 +8,14 @@ namespace ConsoleGame1
     {
         public Random random = new Random();
         public ConsoleKeyInfo info;
-        public SpaceShip playersShip = new SpaceShip(5, 25/*, 1*/);
+        public string[] meteorShape = new string[] { };
+        public string[] shipShape = new string[] { };
+        public SpaceShip playersShip = new SpaceShip(5, 25/*,  1*/);
         public Meteor meteor = new Meteor(80, 25, -1, 0);
         public int[,] whereItemsAreOnScreen = new int[,] { };
         public List<GameObject> itemsInPlay = new List<GameObject> { };
         public List<SpaceShip> spaceShipsInPlay = new List<SpaceShip> { };
         public List<Meteor> meteorsInPlay = new List<Meteor> { };
-
 
         public void drawTheSquare(int width, int height)
         {
@@ -24,7 +25,7 @@ namespace ConsoleGame1
                 {
                     if (y == 0 || y == height - 1)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Blue;
                         if (x == 0 || x == width - 1)
                         {
                             Console.Write("+");
@@ -36,7 +37,7 @@ namespace ConsoleGame1
                     }
                     else if (x == 0 || x == width - 1)
                     {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Blue;
                         Console.Write("|");
                     }
                     else
@@ -47,15 +48,15 @@ namespace ConsoleGame1
                 Console.WriteLine();
             }
         }
-/*
-        public Meteor spawnMeteor()
-        {
-            int atleastTravelingOneDirection = random.Next(1, 10);
-            if()
-            int velocityX = random.Next(0,1)
-            Meteor meteor = new Meteor()
+        /*
+                public Meteor spawnMeteor()
+                {
+                    int atleastTravelingOneDirection = random.Next(1, 10);
+                    if()
+                    int velocityX = random.Next(0,1)
+                    Meteor meteor = new Meteor()
 
-        }*/
+                }*/
 
         public void RunTheGame()
         {
@@ -101,12 +102,12 @@ namespace ConsoleGame1
                     }
                 }
                 playersShip.EraseImageOfShipsPreviousPosition();
-                playersShip.MoveObject(); 
+                playersShip.MoveObject();
                 playersShip.DrawTheSpaceShip();
                 meteor.EraseImageOfMeteorsPreviousPosition();
                 meteor.MoveObject();
                 meteor.DrawTheMeteor();
-                if (IsColliton(playersShip, itemsInPlay) == true) gameOver = true;
+                if (IsCollision(playersShip, meteor) == true) gameOver = true;
                 if (IsEdgePlayer(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
             }
@@ -118,16 +119,31 @@ namespace ConsoleGame1
             return sdfsdf;
         }
 
-        public bool IsColliton(SpaceShip playrShip, List<GameObject> gameObject)
+        public bool IsCollision(SpaceShip gameObjectOne, Meteor gameObjectTwo)
         {
-            foreach (GameObject objectInQuestion in gameObject)
+            for (int y = 0; y < gameObjectOne.shape.Length; y++)
+            {
+                for (int x = 0; x < gameObjectOne.shape[0].Length; x++)
                 {
-                if (objectInQuestion.locationX == playersShip.locationX && objectInQuestion.locationY == playersShip.locationY) return true;
+                    if (CheckCoordinatesAndCompareToOtherObjectsCoordinates(gameObjectOne.locationX + x, gameObjectOne.locationY + y, gameObjectTwo) == true) return true;
                 }
+            }
             return false;
         }
 
-        public bool IsEdge(List<GameObject> gameObject) 
+        public bool CheckCoordinatesAndCompareToOtherObjectsCoordinates(int xCoordinate, int yCoordinate, Meteor meteor)
+        {
+            for (int y = 0; y < meteor.shape.Length; y++)
+            {
+                for (int x = 0; x < meteor.shape[0].Length; x++)
+                {
+                    if (meteor.locationX + x == xCoordinate && meteor.locationY + y == yCoordinate) return true;
+                }
+            }
+            return false;
+        }
+
+        public bool IsEdge(List<GameObject> gameObject)
         {
             foreach (GameObject objectInQuestion in gameObject)
             {
@@ -147,7 +163,7 @@ namespace ConsoleGame1
             Console.Clear();
             Console.WriteLine("GAME OVER!");
         }
-       
+
     }
 }
 
