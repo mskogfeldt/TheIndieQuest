@@ -48,15 +48,6 @@ namespace ConsoleGame1
                 Console.WriteLine();
             }
         }
-        /*
-                public Meteor spawnMeteor()
-                {
-                    int atleastTravelingOneDirection = random.Next(1, 10);
-                    if()
-                    int velocityX = random.Next(0,1)
-                    Meteor meteor = new Meteor()
-
-                }*/
 
         public void RunTheGame()
         {
@@ -125,23 +116,28 @@ namespace ConsoleGame1
             {
                 for (int x = 0; x < gameObjectOne.shape[0].Length; x++)
                 {
-                    if (CheckCoordinatesAndCompareToOtherObjectsCoordinates(gameObjectOne.locationX + x, gameObjectOne.locationY + y, gameObjectTwo) == true) return true;
+                    if (CheckCoordinatesAndCompareToOtherObjectsCoordinatesAndSeeThatTheyAreNotSpace(gameObjectOne.locationX + x, gameObjectOne.locationY + y, gameObjectOne, gameObjectTwo) == true) return true;
                 }
             }
             return false;
         }
 
-        public bool CheckCoordinatesAndCompareToOtherObjectsCoordinates(int xCoordinate, int yCoordinate, Meteor meteor)
+        public bool CheckCoordinatesAndCompareToOtherObjectsCoordinatesAndSeeThatTheyAreNotSpace(int xCoordinate, int yCoordinate, SpaceShip spaceShip, Meteor meteor)
         {
             for (int y = 0; y < meteor.shape.Length; y++)
             {
                 for (int x = 0; x < meteor.shape[0].Length; x++)
                 {
-                    if (meteor.locationX + x == xCoordinate && meteor.locationY + y == yCoordinate) return true;
+                    if (meteor.locationX + x == xCoordinate && meteor.locationY + y == yCoordinate && spaceShip.shape[yCoordinate][xCoordinate] != ' ' && meteor.shape[y][x] != ' ') return true;
                 }
             }
             return false;
         }
+
+    /*    public bool CheckIfEitherCharIsEmpty(int xCoordinate, int yCoordinate, SpaceShip spaceShip ,Meteor meteor)
+        {
+            if (meteor.shape[] + x == xCoordinate && meteor.locationY + y == yCoordinate) return true;)
+        }*/
 
         public bool IsEdge(List<GameObject> gameObject)
         {
