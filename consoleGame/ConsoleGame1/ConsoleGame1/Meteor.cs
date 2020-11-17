@@ -9,35 +9,88 @@ namespace ConsoleGame1
     {
         //public char[,] shape = new char[,] { };
         public string[] shape = new string[] { "     ***     ", "  *********  ", "*************", "*************", "  *********  ", "     ***     " };
-        
+        // int enteringBoardEdge;
+
+
         public Meteor(int locationXCoordinates, int lokationYCoordinates, /*float speedOfSpaceShip, string[] shapeForObject,*/ int velocityDirectionX, int velocityDirectionY)
         {
             locationX = locationXCoordinates;
             locationY = lokationYCoordinates;
             /* speed = speedOfSpaceShip;*/
-           // shape = shapeForObject;
+            // shape = shapeForObject;
             velocityX = velocityDirectionX;
             velocityY = velocityDirectionY;
         }
 
-        public void DrawTheMeteor()
+
+        public void DrawTheMeteor(int width, int height)
         {
-            for (int i = 0; i < shape.Length; i++)
+            for (int y = 0; y < shape.Length; y++)
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.SetCursorPosition((int)locationX, (int)locationY + i);
-                Console.CursorVisible = false;
-                Console.WriteLine(shape[0 + i]);
+                for (int x = 0; x < shape[y].Length; x++)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
+                    Console.CursorVisible = false;
+                    if (IsWhithinEdges(width, height, locationX + x, locationY + y) == true) Console.Write(shape[0 + y][0 + x]);
+                }
+                Console.WriteLine();
             }
         }
 
-        public void EraseImageOfMeteorsPreviousPosition()
+        public bool IsWEdges(int width, int height, int coordinateX, int coordinateY)
         {
-            for (int i = 0; i < 5; i++)
+            if (coordinateX == 1 || coordinateX == width  || coordinateY == 1 || coordinateY < height - 1) return true;
+            return false;
+        }
+
+        public bool IsWhithinEdges(int width, int height, int coordinateX, int coordinateY)
+        {
+            if (coordinateX > 1 && coordinateX < width - 1 && coordinateY > 1 && coordinateY < height - 1) return true;
+            return false;
+        }
+        /*
+         for (int y = 0; y < shape.Length; y++)
+        {
+            for (int x = 0; x < shape[y].Length; x++)
             {
-                Console.SetCursorPosition((int)locationX, (int)locationY + i);
-                Console.CursorVisible = false;
-                Console.WriteLine("             ");
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
+                Console.CursorVisible = false;       
+              if (IsWhithinEdges(width, height, loc##          ationX + x, locationY + y) == true) Console.Write(shape[0 + y][0 + x]);
+            }                                     #    # #
+            Console.WriteLine();                 #   #     #
+                                                #   #   #   #
+                                               #   #  #  #   # 
+                                                #   #    #   # 
+                                                 #   ###    #
+                                                  #       #
+                                                     ####
+
+          * 
+     *   ***  *
+       *******
+     ***********
+   ***************
+     ***********
+      ********* 
+    *    ***   * 
+          *
+
+        }
+         */
+        public void EraseImageOfMeteorsPreviousPosition(int width, int height)
+        {
+            for (int y = 0; y < shape.Length; y++)
+            {
+                for (int x = 0; x < shape[y].Length; x++)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
+                    Console.CursorVisible = false;
+                    if (IsWEdges(width, height, locationX + x, locationY + y) == false) Console.Write(' ');
+                }
+                Console.WriteLine();
             }
         }
     }
