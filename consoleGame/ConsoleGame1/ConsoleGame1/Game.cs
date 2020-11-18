@@ -8,10 +8,12 @@ namespace ConsoleGame1
     {
         public int width = 200;
         public int height = 50;
+        public int leftEdge = 6;
+        public int topEdge = 6;
         public Random random = new Random();
-        public ConsoleKeyInfo info;
+        /*public ConsoleKeyInfo info;
         public string[] meteorShape = new string[] { };
-        public string[] shipShape = new string[] { };
+        public string[] shipShape = new string[] { };*/
         public SpaceShip playersShip = new SpaceShip(5, 25/*,  1*/);
         public Meteor meteor = new Meteor(205, 25, -1, 0);
         public int[,] whereItemsAreOnScreen = new int[,] { };
@@ -19,17 +21,17 @@ namespace ConsoleGame1
         public List<SpaceShip> spaceShipsInPlay = new List<SpaceShip> { };
         public List<Meteor> meteorsInPlay = new List<Meteor> { };
 
-        public void drawTheSquare(int width, int height)
+        public void drawTheSquare(int width, int height/* int leftEdge, int topEdge*/)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 8; y < height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 8; x < width; x++)
                 {
-                    if (y == 0 || y == height - 1)
+                    if (y == 8 || y == height - 1)
                     {
                         
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        if (x == 0 || x == width - 1)
+                        if (x == 8 || x == width - 1)
                         {
                            // Console.BackgroundColor = ConsoleColor.DarkBlue;
                             Console.Write("+");
@@ -39,7 +41,7 @@ namespace ConsoleGame1
                             Console.Write("-");
                         }
                     }
-                    else if (x == 0 || x == width - 1)
+                    else if (x == 8 || x == width - 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.Write("|");
@@ -96,7 +98,7 @@ namespace ConsoleGame1
                             break;
                     }
                 }
-                playersShip.EraseImageOfShipsPreviousPosition();
+                playersShip.EraseImageOfShipsPreviousPosition(width, height);
                 playersShip.MoveObject();
                 playersShip.DrawTheSpaceShipII(width, height);
                 meteor.EraseImageOfMeteorsPreviousPosition(width, height);

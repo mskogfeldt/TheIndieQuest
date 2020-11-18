@@ -37,12 +37,12 @@ namespace ConsoleGame1
                 Console.WriteLine();
             }
         }
-
+/*
         public bool IsWEdges(int width, int height, int coordinateX, int coordinateY)
         {
             if (coordinateX == 1 || coordinateX == width  || coordinateY == 1 || coordinateY < height - 1) return true;
             return false;
-        }
+        }*/
 
         public bool IsWhithinEdges(int width, int height, int coordinateX, int coordinateY)
         {
@@ -85,10 +85,10 @@ namespace ConsoleGame1
             {
                 for (int x = 0; x < shape[y].Length; x++)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    //Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
                     Console.CursorVisible = false;
-                    if (IsWEdges(width, height, locationX + x, locationY + y) == false) Console.Write(' ');
+                    if (IsWhithinEdges(width, height, locationX + x, locationY + y) == true) Console.Write(' ');
                 }
                 Console.WriteLine();
             }

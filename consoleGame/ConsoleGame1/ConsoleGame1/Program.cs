@@ -9,15 +9,14 @@ namespace ConsoleGame1
             /*string[] MeteorShape = new string[] { "     ***     ", "  *********  ", "*************", "*************", "  *********  ", "     ***     " };
             string[] shipShape = new string[] { ">╔═╗- ", ">║+║>>", ">╚═╝- " };*/
 
-            int width = 200;
-            int height = 50;
+           
             // ConsoleKeyInfo info = Console.ReadKey();
 
 
             Console.CursorVisible = false;
             Game newGame = new Game();
 
-            newGame.drawTheSquare(width, height);
+            newGame.drawTheSquare(newGame.width, newGame.height);
             /*
                         while (true)
                         { */

@@ -26,10 +26,6 @@ namespace ConsoleGame1
 
         }
         //int someInt = (int)someFloat
-        public void DrawTheSpaceShipIII()
-        {
-
-        }
 
         public void DrawTheSpaceShipII(int width, int height)
         {
@@ -72,7 +68,7 @@ namespace ConsoleGame1
            Console.WriteLine(shape[2]);
         }*/
 
-        public void EraseImageOfShipsPreviousPosition()
+     /*   public void EraseImageOfShipsPreviousPosition()
         {
             for (int i = 0; i < shape.Length; i++)
             {
@@ -80,11 +76,21 @@ namespace ConsoleGame1
                 Console.CursorVisible = false;
                 Console.Write("      ");
             }
-        }
-
-        public void DeleteTheSpaceShip()
+        }*/
+        
+        public void EraseImageOfShipsPreviousPosition(int width, int height)
         {
-
+            for (int y = 0; y < shape.Length; y++)
+            {
+                for (int x = 0; x < shape[y].Length; x++)
+                {
+                    //Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
+                    Console.CursorVisible = false;
+                    if (IsWhithinEdges(width, height, locationX + x, locationY + y) == true) Console.Write(' ');
+                }
+                Console.WriteLine();
+            }
         }
 
     }
