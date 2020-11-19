@@ -6,24 +6,18 @@ namespace ConsoleGame1
     {
         static void Main(string[] args)
         {
-            /*string[] MeteorShape = new string[] { "     ***     ", "  *********  ", "*************", "*************", "  *********  ", "     ***     " };
-            string[] shipShape = new string[] { ">╔═╗- ", ">║+║>>", ">╚═╝- " };*/
-
            
-            // ConsoleKeyInfo info = Console.ReadKey();
 
 
             Console.CursorVisible = false;
             Game newGame = new Game();
 
-            newGame.drawTheSquare(newGame.width, newGame.height);
-            /*
-                        while (true)
-                        { */
+            //newGame.drawTheSquare3(newGame.width, newGame.height, newGame.leftEdge, newGame.topEdge );
+            //newGame.drawTheSquare(newGame.width, newGame.height);
+            newGame.drawTheSquare2(newGame.width, newGame.height, newGame.leftEdge, newGame.topEdge);
             Console.CursorVisible = false;
             newGame.RunTheGame();
-            // System.Threading.Thread.Sleep(50);
-            //}
+           
 
         }
 
