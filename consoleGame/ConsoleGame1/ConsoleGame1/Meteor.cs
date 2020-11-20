@@ -66,10 +66,29 @@ namespace ConsoleGame1
             return false;
         }
 
+
+        public bool IsPartOfTheMeteorInsideTheEdges(int width, int height, int coordinateX, int coordinateY, int leftEdge, int topEdge)
+        {
+            for (int y = 0; y < shape.Length; y++)
+            {
+                for (int x = 0; x < shape[y].Length; x++)
+                {
+                    if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true) return true;
+                }
+            }
+            return false;
+        }
+
         public bool IsWhithinEdges2(int width, int height, int coordinateX, int coordinateY, int leftEdge, int topEdge)
         {
             if (coordinateX > leftEdge && coordinateX < leftEdge + width - 1 && coordinateY > topEdge && coordinateY < topEdge + height - 1) return true;
             return false;
+        }
+
+        public void StopTheMeteor()
+        {
+            velocityX = 0;
+            velocityY = 0;
         }
         /*
          for (int y = 0; y < shape.Length; y++)

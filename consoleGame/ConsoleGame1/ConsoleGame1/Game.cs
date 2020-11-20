@@ -170,6 +170,7 @@ namespace ConsoleGame1
                 meteor.MoveObject();
                 //meteor.DrawTheMeteor(width, height);
                 meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
+                if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
                 if (IsCollision(playersShip, meteor) == true) gameOver = true;
                 if (IsEdgePlayer(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
