@@ -14,10 +14,10 @@ namespace ConsoleGame1
         /*public ConsoleKeyInfo info;
         public string[] meteorShape = new string[] { };
         public string[] shipShape = new string[] { };*/
-        public SpaceShip playersShip = new SpaceShip(5, 25/*,  1*/);
-        public Meteor meteor = new Meteor(205, 25, -1, 0);
-        public int[,] whereItemsAreOnScreen = new int[,] { };
-        public List<GameObject> itemsInPlay = new List<GameObject> { };
+        public SpaceShip playersShip = new SpaceShip(30, 25/*,  1*/);
+        public Meteor meteor = new Meteor(205, 25, -4, 0);
+        //public int[,] whereItemsAreOnScreen = new int[,] { };
+       // public List<GameObject> itemsInPlay = new List<GameObject> { };
         public List<SpaceShip> spaceShipsInPlay = new List<SpaceShip> { };
         public List<Meteor> meteorsInPlay = new List<Meteor> { };
 
@@ -119,7 +119,9 @@ namespace ConsoleGame1
 
         public void RunTheGame()
         {
-            itemsInPlay.Add(meteor);
+            //itemsInPlay.Add(meteor);
+            int timeWhenNextMeteorWillSpawn = 0;
+            int timePassed = 0;
             spaceShipsInPlay.Add(playersShip);
             meteorsInPlay.Add(meteor);
             //System.Threading.Thread.Sleep(1000 / sv_settings.fps);
@@ -172,7 +174,7 @@ namespace ConsoleGame1
                 meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
                 if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
                 if (IsCollision(playersShip, meteor) == true) gameOver = true;
-                if (IsEdgePlayer(playersShip) == true) gameOver = true;
+                if (IsPlayerAtEdge(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
             }
         }
@@ -216,26 +218,9 @@ namespace ConsoleGame1
             return false;
         }
 
-        public bool IsEdgePlayer(SpaceShip playerShip)
+        public bool IsPlayerAtEdge(SpaceShip playerShip)
         {
-            if (playerShip.locationY == 1 || playerShip.locationX == 1 || playerShip.locationY + playerShip.shape.Length == 50 || playerShip.locationX + playerShip.shape[0].Length == 200) return true;
-            
-            /*for (int y = 0; y < gameObjectOne.shape.Length; y++)
-            {
-                for (int x = 0; x < gameObjectOne.shape[0].Length; x++)
-                {
-                    if (gameObjectOne.shape[y][x] != ' ' && gameObjectOne.locationX <= 1 || gameObjectOne.shape[y][x] != ' ' && gameObjectOne.locationX >= 100 ||) return true;
-
-                }
-            }*/
-            return false;
-            /* if (spaceShip.locationX == 1 || spaceShip.locationX == 200 || spaceShip.locationY == 1 || spaceShip.locationY == 50) return true;
-            return false;*/
-        }
-
-        public bool IsEdgePlayer2(SpaceShip playerShip)
-        {
-            if (playerShip.locationY == topEdge || playerShip.locationX == leftEdge || topEdge + playerShip.locationY + playerShip.shape.Length == height || leftEdge + playerShip.locationX + playerShip.shape[0].Length == width) return true;
+            if (playerShip.locationY == topEdge || playerShip.locationX == leftEdge ||  playerShip.locationY + playerShip.shape.Length == topEdge + height || playerShip.locationX + playerShip.shape[0].Length == leftEdge + width) return true;
             return false;
         }
 
@@ -245,7 +230,62 @@ namespace ConsoleGame1
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("GAME OVER!");
         }
+        
 
+        public List<int> RandomizeWhereMeteorSpawns() 
+        {
+            List<int> startingCoordinatesForMeteorXY = new List<int> { };
+            int direction = random.Next(1, 9);
+            if (direction >= 1 && direction <= 4)
+            {
+                startingCoordinatesForMeteorXY.Add(leftEdge + width - 1);
+                startingCoordinatesForMeteorXY.Add(DetermineYCoordinateForMeteorComingFromWest());
+            }
+            else if (direction >= 5 && direction <= 6)
+            {
+                startingCoordinatesForMeteorXY.Add(DetermineStartingXCoordinateForMeteorComingFromNorthOrSouth());
+                startingCoordinatesForMeteorXY.Add(topEdge + height - 1);
+            }
+            else 
+            {
+                startingCoordinatesForMeteorXY.Add(DetermineStartingXCoordinateForMeteorComingFromNorthOrSouth());
+                startingCoordinatesForMeteorXY.Add(topEdge + 1);
+            } 
+            return startingCoordinatesForMeteorXY;
+        }
+
+        public List<int> DetermineVelosotyOfMeteorFromWest(int startingCoordinateY) 
+        {
+            List<int> velocityXY = new List<int> { };
+            if (startingCoordinateY <= (topEdge + height) / 4) 
+            {
+                int velosotyX = random.Next(-6, -3);
+                int velocityY = random.Next(1, 2);
+                
+            }
+            else if (startingCoordinateY <= (topEdge + height) / 4)
+               
+            
+            
+            return velocityXY;
+        }
+
+        public int DetermineStartingXCoordinateForMeteorComingFromNorthOrSouth()
+        {
+            int minumumDistanceToSpawn = 10;
+            return random.Next(leftEdge + minumumDistanceToSpawn, leftEdge + width);
+        }
+
+        public int DetermineYCoordinateForMeteorComingFromWest() 
+        {
+            return random.Next(topEdge + meteor.shape.Length, topEdge + height);
+        }
+
+     /*   public Meteor SpawnMeteor() 
+        {
+                    int temp = 0;
+        }
+        */
     }
 }
 

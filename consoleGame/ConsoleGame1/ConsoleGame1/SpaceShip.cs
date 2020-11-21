@@ -10,7 +10,7 @@ namespace ConsoleGame1
         // public string[] shape = new string[] { "  \\[]\\   ", ">[][][][]>", "/[]/" };
 
         
-        public string[] shape = new string[] { ">╔═╗- ", ">║+║>>", ">╚═╝- " };
+        public string[] shape = new string[] { ">╔═╗- ", " ║=║>>", ">╚═╝- " };
         public List<string> weapons = new List<string> { };
         public List<int> xnumbers;
         public List<int> ynumbers;
