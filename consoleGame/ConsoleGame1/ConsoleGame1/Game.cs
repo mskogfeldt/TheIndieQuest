@@ -21,7 +21,7 @@ namespace ConsoleGame1
         public List<SpaceShip> spaceShipsInPlay = new List<SpaceShip> { };
         public List<Meteor> meteorsInPlay = new List<Meteor> { };
 
-        public void drawTheSquare(int width, int height/* int leftEdge, int topEdge*/)
+        public void DrawTheSquare(int width, int height/* int leftEdge, int topEdge*/)
         {
             for (int y = 0; y < height; y++)
             {
@@ -231,7 +231,6 @@ namespace ConsoleGame1
             Console.WriteLine("GAME OVER!");
         }
         
-
         public List<int> RandomizeWhereMeteorSpawns() 
         {
             List<int> startingCoordinatesForMeteorXY = new List<int> { };
@@ -254,21 +253,83 @@ namespace ConsoleGame1
             return startingCoordinatesForMeteorXY;
         }
 
-        public List<int> DetermineVelosotyOfMeteorFromWest(int startingCoordinateY) 
+        public List<int> DetermineVelocityOfMeteorFromWest(int startingCoordinateY) 
         {
-            List<int> velocityXY = new List<int> { };
-            if (startingCoordinateY <= (topEdge + height) / 4) 
+            int vevelosotyX = 0;
+            int vevelosotyY = 0;
+            List<int> vevelosotyXY = new List<int> { };
+            if (startingCoordinateY <= (topEdge + height) / 4)
             {
-                int velosotyX = random.Next(-6, -3);
-                int velocityY = random.Next(1, 2);
-                
+                vevelosotyY = random.Next(0, 4);
+                vevelosotyX = random.Next(-6, -4);
+                vevelosotyXY.Add(vevelosotyX);
+                vevelosotyXY.Add(vevelosotyY);
             }
-            else if (startingCoordinateY <= (topEdge + height) / 4)
-               
-            
-            
-            return velocityXY;
+            else if (startingCoordinateY > (topEdge + height) / 4 && startingCoordinateY <= (topEdge + height) / 2)
+            {
+                vevelosotyY = random.Next(-1, 3);
+                vevelosotyX = random.Next(-6, -4);
+                vevelosotyXY.Add(vevelosotyX);
+                vevelosotyXY.Add(vevelosotyY);
+            }
+            else if (startingCoordinateY > (topEdge + height) / 2 && startingCoordinateY <= (topEdge + height) * 3 / 4) 
+            {
+                vevelosotyY = random.Next(-2, 2);
+                vevelosotyX = random.Next(-6, -4);
+                vevelosotyXY.Add(vevelosotyX);
+                vevelosotyXY.Add(vevelosotyY);
+            }
+            else 
+            {
+                vevelosotyY = random.Next(-3, 1);
+                vevelosotyX = random.Next(-6, -4);
+                vevelosotyXY.Add(vevelosotyX);
+                vevelosotyXY.Add(vevelosotyY);
+            }
+            return vevelosotyXY;
         }
+
+        public List<int> DetermineVelocityOfMeteorFromNorthOrSouth(int startingCoordinateX, string northOrSouth)
+        {
+            int northOrSouthModifier = 0;
+            if (northOrSouth == "north") northOrSouthModifier = 1;
+            if (northOrSouth == "south") northOrSouthModifier = - 1;
+            int vevelosotyX = 0;
+            int vevelosotyY = 0;
+            List<int> vevelosotyXY = new List<int> { };
+            if (startingCoordinateX <= (leftEdge + width) / 4)
+            {
+                vevelosotyY = random.Next(2, 4) * northOrSouthModifier;
+                vevelosotyX = random.Next(-4, -2);
+                vevelosotyXY.Add(vevelosotyX);
+                vevelosotyXY.Add(vevelosotyY);
+            }
+            else if (startingCoordinateX > (leftEdge + width) / 4 && startingCoordinateX <= (leftEdge + width) / 2)
+            {
+                vevelosotyY = random.Next(1, 3) * northOrSouthModifier;
+                vevelosotyX = random.Next(-4, -2);
+                vevelosotyXY.Add(vevelosotyX);
+                vevelosotyXY.Add(vevelosotyY);
+            }
+            else if (startingCoordinateX > (leftEdge + width) / 2 && startingCoordinateX <= (leftEdge + width) * 3 / 4)
+            {
+                vevelosotyY = random.Next(-2, 0) * northOrSouthModifier;
+                vevelosotyX = random.Next(-4, -2);
+                vevelosotyXY.Add(vevelosotyX);
+                vevelosotyXY.Add(vevelosotyY);
+            }
+            else
+            {
+                vevelosotyY = random.Next(-4, -1) * northOrSouthModifier;
+                vevelosotyX = random.Next(-3, -1);
+                vevelosotyXY.Add(vevelosotyX);
+                vevelosotyXY.Add(vevelosotyY);
+            }
+            return vevelosotyXY;
+        }
+
+
+        // public int MaximumVelocity
 
         public int DetermineStartingXCoordinateForMeteorComingFromNorthOrSouth()
         {
@@ -280,6 +341,8 @@ namespace ConsoleGame1
         {
             return random.Next(topEdge + meteor.shape.Length, topEdge + height);
         }
+
+
 
      /*   public Meteor SpawnMeteor() 
         {
