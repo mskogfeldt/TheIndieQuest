@@ -29,7 +29,6 @@ namespace ConsoleGame1
                 {
                     if (y == 0 || y == height - 1)
                     {
-                        
                         Console.ForegroundColor = ConsoleColor.Blue;
                         if (x == 0 || x == width - 1)
                         {
@@ -120,8 +119,10 @@ namespace ConsoleGame1
         public void RunTheGame()
         {
             //itemsInPlay.Add(meteor);
-            int timeWhenNextMeteorWillSpawn = 0;
+            
+            //TimeWhenNextMeteorWillSpawn(int timeForLastMeteorSpawning) 
             int timePassed = 0;
+            int timeWhenNextMeteorWillSpawn = TimeWhenNextMeteorWillSpawn(timePassed);
             spaceShipsInPlay.Add(playersShip);
             meteorsInPlay.Add(meteor);
             //System.Threading.Thread.Sleep(1000 / sv_settings.fps);
@@ -134,7 +135,12 @@ namespace ConsoleGame1
             {
                 //playersShip.EraseImageOfShipsPreviousPosition();
                 System.Threading.Thread.Sleep(1000 / 10);
-
+                timePassed++;
+                if (timePassed >= timeWhenNextMeteorWillSpawn) 
+                {
+                    SpawnMeteor();
+                    TimeWhenNextMeteorWillSpawn(timePassed);
+                } 
                 while (System.Console.KeyAvailable)
                 {
                     var key = System.Console.ReadKey(true);
@@ -349,8 +355,6 @@ namespace ConsoleGame1
         }
 
 
-        // public int MaximumVelocity
-
         public int DetermineStartingXCoordinateForMeteorComingFromNorthOrSouth()
         {
             int minumumDistanceToSpawn = 10;
@@ -362,13 +366,10 @@ namespace ConsoleGame1
             return random.Next(topEdge + meteor.shape.Length, topEdge + height);
         }
 
-
-
-     /*   public Meteor SpawnMeteor() 
+        public int TimeWhenNextMeteorWillSpawn(int timeForLastMeteorSpawning) 
         {
-                    int temp = 0;
+            return random.Next(20, 40) + timeForLastMeteorSpawning;
         }
-        */
     }
 }
 
