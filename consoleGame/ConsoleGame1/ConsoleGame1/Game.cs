@@ -168,12 +168,22 @@ namespace ConsoleGame1
                 //playersShip.DrawTheSpaceShipII(width, height);
                 playersShip.DrawTheSpaceShipII2(width, height, leftEdge, topEdge);
                 //meteor.EraseImageOfMeteorsPreviousPosition(width, height);
-                meteor.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
-                meteor.MoveObject();
-                //meteor.DrawTheMeteor(width, height);
-                meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
-                if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
-                if (IsCollision(playersShip, meteor) == true) gameOver = true;
+                foreach(Meteor meteor in meteorsInPlay) 
+                {
+                    meteor.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
+                    meteor.MoveObject();
+                    //meteor.DrawTheMeteor(width, height);
+                    meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
+                    if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
+                    if (IsCollision(playersShip, meteor) == true) gameOver = true;
+                }
+                /*  
+                  meteor.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
+                  meteor.MoveObject();
+                  //meteor.DrawTheMeteor(width, height);
+                  meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
+                  if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
+                  if (IsCollision(playersShip, meteor) == true) gameOver = true;*/
                 if (IsPlayerAtEdge(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
             }
@@ -230,7 +240,17 @@ namespace ConsoleGame1
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("GAME OVER!");
         }
-        
+
+        public void SpawnMeteor() 
+        {
+            List<int> xCoordinateYCoordinate = RandomizeWhereMeteorSpawns();
+            List<int> xVelocityYVelocity = new List<int> { };
+            if (xCoordinateYCoordinate[0] == leftEdge + width - 1) xVelocityYVelocity = DetermineVelocityOfMeteorFromWest(xCoordinateYCoordinate[1]);
+            else if (xCoordinateYCoordinate[1] == topEdge + 1) xVelocityYVelocity = DetermineVelocityOfMeteorFromNorthOrSouth(xCoordinateYCoordinate[0], "north");
+            else xVelocityYVelocity = DetermineVelocityOfMeteorFromNorthOrSouth(xCoordinateYCoordinate[0], "south");
+            meteorsInPlay.Add(new Meteor(xCoordinateYCoordinate[0], xCoordinateYCoordinate[1], xVelocityYVelocity[0], xVelocityYVelocity[1]));
+        }
+
         public List<int> RandomizeWhereMeteorSpawns() 
         {
             List<int> startingCoordinatesForMeteorXY = new List<int> { };
