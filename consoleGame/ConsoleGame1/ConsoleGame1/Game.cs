@@ -6,10 +6,10 @@ namespace ConsoleGame1
 {
     class Game
     {
-        public int width = 200;
-        public int height = 49;
-        public int leftEdge = 16;
-        public int topEdge = 8;
+        public int width = 196;//196
+        public int height = 45; //45
+        public int leftEdge = 18; //18
+        public int topEdge = 10; //10
         public Random random = new Random();
         /*public ConsoleKeyInfo info;
         public string[] meteorShape = new string[] { };
@@ -122,7 +122,7 @@ namespace ConsoleGame1
             
             //TimeWhenNextMeteorWillSpawn(int timeForLastMeteorSpawning) 
             int timePassed = 0;
-            int timeWhenNextMeteorWillSpawn = TimeWhenNextMeteorWillSpawn(timePassed);
+            int timeWhenNextMeteorWillSpawn = CalculateTimeWhenNextMeteorWillSpawn(timePassed);
             spaceShipsInPlay.Add(playersShip);
             meteorsInPlay.Add(meteor);
             //System.Threading.Thread.Sleep(1000 / sv_settings.fps);
@@ -139,7 +139,7 @@ namespace ConsoleGame1
                 if (timePassed >= timeWhenNextMeteorWillSpawn) 
                 {
                     SpawnMeteor();
-                    TimeWhenNextMeteorWillSpawn(timePassed);
+                    timeWhenNextMeteorWillSpawn = CalculateTimeWhenNextMeteorWillSpawn(timePassed);
                 } 
                 while (System.Console.KeyAvailable)
                 {
@@ -180,7 +180,7 @@ namespace ConsoleGame1
                     meteor.MoveObject();
                     //meteor.DrawTheMeteor(width, height);
                     meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
-                    if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
+                    if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false)  meteor.StopTheMeteor();
                     if (IsCollision(playersShip, meteor) == true) gameOver = true;
                 }
                 /*  
@@ -190,6 +190,7 @@ namespace ConsoleGame1
                   meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
                   if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
                   if (IsCollision(playersShip, meteor) == true) gameOver = true;*/
+                meteorsInPlay = TakeMeteorsMakeNewListWithoutExpiredMeteors(meteorsInPlay);
                 if (IsPlayerAtEdge(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
             }
@@ -286,28 +287,28 @@ namespace ConsoleGame1
             List<int> vevelosotyXY = new List<int> { };
             if (startingCoordinateY <= (topEdge + height) / 4)
             {
-                vevelosotyY = random.Next(0, 4);
+                vevelosotyY = random.Next(1, 3);
                 vevelosotyX = random.Next(-6, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else if (startingCoordinateY > (topEdge + height) / 4 && startingCoordinateY <= (topEdge + height) / 2)
             {
-                vevelosotyY = random.Next(-1, 3);
-                vevelosotyX = random.Next(-6, -4);
+                vevelosotyY = random.Next(0, 3);
+                vevelosotyX = random.Next(-7, -5);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else if (startingCoordinateY > (topEdge + height) / 2 && startingCoordinateY <= (topEdge + height) * 3 / 4) 
             {
-                vevelosotyY = random.Next(-2, 2);
-                vevelosotyX = random.Next(-6, -4);
+                vevelosotyY = random.Next(-2, 1);
+                vevelosotyX = random.Next(-7, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else 
             {
-                vevelosotyY = random.Next(-3, 1);
+                vevelosotyY = random.Next(-2, 0);
                 vevelosotyX = random.Next(-6, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
@@ -325,29 +326,29 @@ namespace ConsoleGame1
             List<int> vevelosotyXY = new List<int> { };
             if (startingCoordinateX <= (leftEdge + width) / 4)
             {
-                vevelosotyY = random.Next(2, 4) * northOrSouthModifier;
-                vevelosotyX = random.Next(-4, -2);
+                vevelosotyY = random.Next(3, 5) * northOrSouthModifier;
+                vevelosotyX = random.Next(-4, -1);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else if (startingCoordinateX > (leftEdge + width) / 4 && startingCoordinateX <= (leftEdge + width) / 2)
             {
-                vevelosotyY = random.Next(1, 3) * northOrSouthModifier;
-                vevelosotyX = random.Next(-4, -2);
+                vevelosotyY = random.Next(1, 2) * northOrSouthModifier;
+                vevelosotyX = random.Next(-6, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else if (startingCoordinateX > (leftEdge + width) / 2 && startingCoordinateX <= (leftEdge + width) * 3 / 4)
             {
                 vevelosotyY = random.Next(-2, 0) * northOrSouthModifier;
-                vevelosotyX = random.Next(-4, -2);
+                vevelosotyX = random.Next(-6, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else
             {
-                vevelosotyY = random.Next(-4, -1) * northOrSouthModifier;
-                vevelosotyX = random.Next(-3, -1);
+                vevelosotyY = random.Next(-5, -2) * northOrSouthModifier;
+                vevelosotyX = random.Next(-4, -1);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
@@ -366,10 +367,22 @@ namespace ConsoleGame1
             return random.Next(topEdge + meteor.shape.Length, topEdge + height);
         }
 
-        public int TimeWhenNextMeteorWillSpawn(int timeForLastMeteorSpawning) 
+        public int CalculateTimeWhenNextMeteorWillSpawn(int timePassed) 
         {
-            return random.Next(20, 40) + timeForLastMeteorSpawning;
+            return random.Next(5, 10) + timePassed;
         }
+
+        public List<Meteor> TakeMeteorsMakeNewListWithoutExpiredMeteors(List<Meteor> unsorterMeteors) 
+        {
+            List<Meteor> sortedMeteors = new List<Meteor> { };
+            foreach (Meteor meteor in unsorterMeteors) 
+            {
+                if (meteor.velocityX == 0 && meteor.velocityY == 0) continue;
+                else sortedMeteors.Add(meteor);
+            }
+            return sortedMeteors;
+        }
+
     }
 }
 

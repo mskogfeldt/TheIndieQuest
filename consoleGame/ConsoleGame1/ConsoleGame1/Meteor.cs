@@ -91,23 +91,17 @@ namespace ConsoleGame1
             velocityY = 0;
         }
         /*
-         for (int y = 0; y < shape.Length; y++)
-        {
-            for (int x = 0; x < shape[y].Length; x++)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
-                Console.CursorVisible = false;       
-              if (IsWhithinEdges(width, height, loc##          ationX + x, locationY + y) == true) Console.Write(shape[0 + y][0 + x]);
-            }                                     #    # #
-            Console.WriteLine();                 #   #     #
-                                                #   #   #   #
-                                               #   #  #  #   # 
-                                                #   #    #   # 
-                                                 #   ###    #
-                                                  #       #
-                                                     ####
-
+   
+              ##         
+            #    # #
+           #   #     #
+          #   #   #   #
+         #   #  #  #   # 
+         #   #    #   # 
+          #   ###    #
+           #       #
+              ####
+                                                  
           * 
      *   ***  *
        *******
@@ -118,6 +112,31 @@ namespace ConsoleGame1
     *    ***   * 
           *
 
+        
+            
+             *  *
+           *      *
+         *          *
+         *          *
+           *      *
+             *  *
+            
+                 *
+               *****
+            *         *
+          *             *
+         *               *
+       *                  *
+       *                   *
+       *                   *
+       *                   *
+        *                 *
+         *               *
+           *           *
+              **   ** 
+                 *
+                 *
+                
 
         }
          */
