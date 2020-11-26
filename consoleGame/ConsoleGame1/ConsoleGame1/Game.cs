@@ -6,53 +6,15 @@ namespace ConsoleGame1
 {
     class Game
     {
-        public int width = 196;//196
-        public int height = 45; //45
-        public int leftEdge = 18; //18
-        public int topEdge = 10; //10
+        public int width = 196;
+        public int height = 45; 
+        public int leftEdge = 18; 
+        public int topEdge = 10; 
         public Random random = new Random();
-        /*public ConsoleKeyInfo info;
-        public string[] meteorShape = new string[] { };
-        public string[] shipShape = new string[] { };*/
         public SpaceShip playersShip = new SpaceShip(30, 25/*,  1*/);
         public Meteor meteor = new Meteor(205, 25, -4, 0);
-        //public int[,] whereItemsAreOnScreen = new int[,] { };
-       // public List<GameObject> itemsInPlay = new List<GameObject> { };
         public List<SpaceShip> spaceShipsInPlay = new List<SpaceShip> { };
         public List<Meteor> meteorsInPlay = new List<Meteor> { };
-
-        public void DrawTheSquare(int width, int height/* int leftEdge, int topEdge*/)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    if (y == 0 || y == height - 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        if (x == 0 || x == width - 1)
-                        {
-                           // Console.BackgroundColor = ConsoleColor.DarkBlue;
-                            Console.Write("+");
-                        }
-                        else
-                        {
-                            Console.Write("-");
-                        }
-                    }
-                    else if (x == 0 || x == width - 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write("|");
-                    }
-                    else
-                    {
-                        Console.Write(" ");
-                    }
-                }
-                Console.WriteLine();
-            }
-        }
 
         public void drawTheSquare2(int width, int height, int leftEdge, int topEdge)
         {
@@ -60,12 +22,11 @@ namespace ConsoleGame1
             {
                 for (int x = 0; x < leftEdge + width; x++)
                 {
-                    if ( /*y > topEdge && x > leftEdge &&*/ y == topEdge || y == topEdge + height - 1)
+                    if ( y == topEdge || y == topEdge + height - 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
                         if (x == leftEdge || x == leftEdge + width - 1)
                         {
-                            // Console.BackgroundColor = ConsoleColor.DarkBlue;
                             Console.Write("+");
                         }
                         else if (x < leftEdge)
@@ -101,7 +62,7 @@ namespace ConsoleGame1
             {
                 for (int x = 0; x < leftEdge + width; x++)
                 {
-                    if ( /*y > topEdge && x > leftEdge &&*/ y == topEdge || y == topEdge + height - 1 || x == leftEdge || x == leftEdge + width - 1)
+                    if (y == topEdge || y == topEdge + height - 1 || x == leftEdge || x == leftEdge + width - 1)
                     {
                         Console.BackgroundColor = ConsoleColor.DarkBlue;
                         Console.Write(" ");
@@ -118,22 +79,14 @@ namespace ConsoleGame1
 
         public void RunTheGame()
         {
-            //itemsInPlay.Add(meteor);
-            
-            //TimeWhenNextMeteorWillSpawn(int timeForLastMeteorSpawning) 
             int timePassed = 0;
             int timeWhenNextMeteorWillSpawn = CalculateTimeWhenNextMeteorWillSpawn(timePassed);
             spaceShipsInPlay.Add(playersShip);
             meteorsInPlay.Add(meteor);
-            //System.Threading.Thread.Sleep(1000 / sv_settings.fps);
-            /*while (System.Console.KeyAvailable)
-				{
-					var _key = System.Console.ReadKey(true);*/
             bool gameOver = false;
 
             while (gameOver == false)
             {
-                //playersShip.EraseImageOfShipsPreviousPosition();
                 System.Threading.Thread.Sleep(1000 / 10);
                 timePassed++;
                 if (timePassed >= timeWhenNextMeteorWillSpawn) 
@@ -168,28 +121,17 @@ namespace ConsoleGame1
                             break;
                     }
                 }
-                //playersShip.EraseImageOfShipsPreviousPosition(width, height);
                 playersShip.EraseImageOfSpaceShipsPreviousPosition(width, height, leftEdge, topEdge);
                 playersShip.MoveObject();
-                //playersShip.DrawTheSpaceShipII(width, height);
                 playersShip.DrawTheSpaceShipII2(width, height, leftEdge, topEdge);
-                //meteor.EraseImageOfMeteorsPreviousPosition(width, height);
                 foreach(Meteor meteor in meteorsInPlay) 
                 {
                     meteor.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
                     meteor.MoveObject();
-                    //meteor.DrawTheMeteor(width, height);
                     meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
                     if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false)  meteor.StopTheMeteor();
                     if (IsCollision(playersShip, meteor) == true) gameOver = true;
                 }
-                /*  
-                  meteor.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
-                  meteor.MoveObject();
-                  //meteor.DrawTheMeteor(width, height);
-                  meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
-                  if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
-                  if (IsCollision(playersShip, meteor) == true) gameOver = true;*/
                 meteorsInPlay = TakeMeteorsMakeNewListWithoutExpiredMeteors(meteorsInPlay);
                 if (IsPlayerAtEdge(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
@@ -301,7 +243,7 @@ namespace ConsoleGame1
             }
             else if (startingCoordinateY > (topEdge + height) / 2 && startingCoordinateY <= (topEdge + height) * 3 / 4) 
             {
-                vevelosotyY = random.Next(-2, 1);
+                vevelosotyY = random.Next(-1, 1);
                 vevelosotyX = random.Next(-7, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
@@ -326,28 +268,28 @@ namespace ConsoleGame1
             List<int> vevelosotyXY = new List<int> { };
             if (startingCoordinateX <= (leftEdge + width) / 4)
             {
-                vevelosotyY = random.Next(3, 5) * northOrSouthModifier;
+                vevelosotyY = random.Next(3, 6) * northOrSouthModifier;
                 vevelosotyX = random.Next(-4, -1);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else if (startingCoordinateX > (leftEdge + width) / 4 && startingCoordinateX <= (leftEdge + width) / 2)
             {
-                vevelosotyY = random.Next(1, 2) * northOrSouthModifier;
+                vevelosotyY = random.Next(2, 5) * northOrSouthModifier;
                 vevelosotyX = random.Next(-6, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else if (startingCoordinateX > (leftEdge + width) / 2 && startingCoordinateX <= (leftEdge + width) * 3 / 4)
             {
-                vevelosotyY = random.Next(-2, 0) * northOrSouthModifier;
+                vevelosotyY = random.Next( 1, 4) * northOrSouthModifier;
                 vevelosotyX = random.Next(-6, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
             else
             {
-                vevelosotyY = random.Next(-5, -2) * northOrSouthModifier;
+                vevelosotyY = random.Next(1, 3) * northOrSouthModifier;
                 vevelosotyX = random.Next(-4, -1);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
