@@ -13,6 +13,13 @@ namespace ConsoleGame1
         public int velocityX { get; set; }
         public int velocityY { get; set; }
 
+
+        public void MoveObject()
+        {
+            locationX += velocityX;
+            locationY += velocityY;
+        }
+
         /* public Weapon(int damageForThisWeapon, string shapeForThisWeapon)
          {
              damage = damageForThisWeapon;
