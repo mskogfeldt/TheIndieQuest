@@ -14,6 +14,7 @@ namespace ConsoleGame1
         public SpaceShip playersShip = new SpaceShip(30, 25/*,  1*/);
         public Meteor meteor = new Meteor(205, 25, -4, 0);
         public List<SpaceShip> spaceShipsInPlay = new List<SpaceShip> { };
+        public List<BasicFriendlyLazer> basicFriendlyLazers = new List<BasicFriendlyLazer> { };
         public List<Meteor> meteorsInPlay = new List<Meteor> { };
 
         public void drawTheSquare2(int width, int height, int leftEdge, int topEdge)
@@ -119,11 +120,22 @@ namespace ConsoleGame1
                                 playersShip.velocityY++;
                             }
                             break;
+                        case System.ConsoleKey.F:
+                            {
+                                FireFriendLyWeapon(playersShip);
+                            }
+                            break;
                     }
                 }
                 playersShip.EraseImageOfSpaceShipsPreviousPosition(width, height, leftEdge, topEdge);
                 playersShip.MoveObject();
                 playersShip.DrawTheSpaceShipII2(width, height, leftEdge, topEdge);
+                foreach (BasicFriendlyLazer lazer in basicFriendlyLazers) 
+                {
+                    lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
+                    lazer.MoveObject();
+                    lazer.DrawTheLazer(width, height, leftEdge, topEdge);
+                }
                 foreach(Meteor meteor in meteorsInPlay) 
                 {
                     meteor.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
@@ -188,6 +200,11 @@ namespace ConsoleGame1
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("GAME OVER!");
+        }
+
+        public void FireFriendLyWeapon(SpaceShip spaceShip) 
+        {
+            basicFriendlyLazers.Add(new BasicFriendlyLazer(spaceShip.locationX, spaceShip.locationY));
         }
 
         public void SpawnMeteor() 

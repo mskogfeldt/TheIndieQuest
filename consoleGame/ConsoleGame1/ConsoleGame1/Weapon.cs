@@ -20,6 +20,8 @@ namespace ConsoleGame1
             locationY += velocityY;
         }
 
+       
+
         /* public Weapon(int damageForThisWeapon, string shapeForThisWeapon)
          {
              damage = damageForThisWeapon;
