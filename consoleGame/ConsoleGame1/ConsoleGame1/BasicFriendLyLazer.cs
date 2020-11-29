@@ -38,25 +38,23 @@ namespace ConsoleGame1
             }
         }
 
-        /*
-         public void EraseImageOfSpaceShipsPreviousPosition(int width, int height, int leftEdge, int topEdge)
+
+        public void EraseImageOfMeteorsPreviousPosition2(int width, int height, int leftEdge, int topEdge)
         {
-            for (int y = 0; y < shape.Length; y++)
-            {
-                for (int x = 0; x < shape[y].Length; x++)
+           
+                for (int x = 0; x < shape.Length; x++)
                 {
                     //Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
+                    Console.SetCursorPosition((int)locationX + x, (int)locationY);
                     Console.CursorVisible = false;
-                    if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true) Console.Write(' ');
+                    if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true) Console.Write(' ');
+                    //if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true) Console.Write(shape[0 + y][0 + x]);
                 }
                 Console.WriteLine();
-            }
+           
         }
-         
-         
-         
-         */
+
+
 
         public void DrawTheLazer(int width, int height, int leftEdge, int topEdge)
         {
@@ -67,25 +65,24 @@ namespace ConsoleGame1
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.SetCursorPosition((int)locationX + x, (int)locationY);
                     Console.CursorVisible = false;
-                    Console.Write(shape);
+                    Console.Write(shape[x]);
                 }
             }
         }
-        /*
+        
          public void DrawTheSpaceShipII2(int width, int height, int leftEdge, int topEdge)
         {
-            for (int y = 0; y < shape.Length; y++)
-            {
-                for (int x = 0; x < shape[y].Length; x++)
+            
+                for (int x = 0; x < shape.Length; x++)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
+                    Console.SetCursorPosition((int)locationX + x, (int)locationY);
                     Console.CursorVisible = false;
-                    if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true) Console.Write(shape[0 + y][0 + x]);
+                    if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true) Console.Write(shape[0 + x]);
                 }
-                Console.WriteLine();
-            }
-        }*/
+                
+           
+        }
 
         public bool IsPartOfTheLazerInsideTheEdges(int width, int height, int coordinateX, int coordinateY, int leftEdge, int topEdge)
         {
@@ -100,6 +97,12 @@ namespace ConsoleGame1
         {
             if (coordinateX > leftEdge && coordinateX < leftEdge + width - 1 && coordinateY > topEdge && coordinateY < topEdge + height - 1) return true;
             return false;
+        }
+
+        public void StopTheLazer()
+        {
+            velocityX = 0;
+            velocityY = 0;
         }
 
     }

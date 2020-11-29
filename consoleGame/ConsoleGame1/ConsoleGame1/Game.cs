@@ -132,9 +132,13 @@ namespace ConsoleGame1
                 playersShip.DrawTheSpaceShipII2(width, height, leftEdge, topEdge);
                 foreach (BasicFriendlyLazer lazer in basicFriendlyLazers) 
                 {
-                    lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
+                     lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
+                     lazer.MoveObject();
+                     lazer.DrawTheLazer(width, height, leftEdge, topEdge);
+                /*    lazer.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
                     lazer.MoveObject();
                     lazer.DrawTheLazer(width, height, leftEdge, topEdge);
+                    if (lazer.IsPartOfTheLazerInsideTheEdges(width, height, lazer.locationX, lazer.locationY, leftEdge, topEdge) == false) lazer.StopTheLazer();*/
                 }
                 foreach(Meteor meteor in meteorsInPlay) 
                 {
