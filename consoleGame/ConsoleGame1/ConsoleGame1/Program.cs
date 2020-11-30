@@ -9,10 +9,10 @@ namespace ConsoleGame1
             // System.Environment.SystemPageSize() =
             //System.Environment.GetEnvironmentVariable = 
 
-            Console.CursorVisible = false;
+            //Console.CursorVisible = false;
             Game newGame = new Game();
 
-            Console.CursorSize
+            //Console.CursorSize
 
             //newGame.drawTheSquare3(newGame.width, newGame.height, newGame.leftEdge, newGame.topEdge );
             //newGame.drawTheSquare(newGame.width, newGame.height);

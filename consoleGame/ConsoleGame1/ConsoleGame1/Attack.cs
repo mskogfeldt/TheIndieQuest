@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleGame1
 {
-    class Weapon
+    class Attack
     {
         public int damage { get; set; }
         public int locationX { get; set; }

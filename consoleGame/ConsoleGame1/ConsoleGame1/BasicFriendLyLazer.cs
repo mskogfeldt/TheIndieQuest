@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleGame1
 {
-    class BasicFriendlyLazer : Weapon
+    class BasicFriendlyLazer : Attack
     {
         //public string[] shape = new string[] { "-", "-", "-", "-" };
         public string shape = "-----";
@@ -20,10 +20,10 @@ namespace ConsoleGame1
             damage = 1;
         }
 
-     /*   public void Fire(int shipsPossitionX, int shipsPossitionY)
-        {
-            return new BasicFriendlyLazer(shipsPossitionX, shipsPossitionY);
-        }*/
+        /*   public void Fire(int shipsPossitionX, int shipsPossitionY)
+           {
+               return new BasicFriendlyLazer(shipsPossitionX, shipsPossitionY);
+           }*/
 
         public void EraseImageOfLazersPreviousPosition2(int width, int height, int leftEdge, int topEdge)
         {
@@ -41,17 +41,17 @@ namespace ConsoleGame1
 
         public void EraseImageOfMeteorsPreviousPosition2(int width, int height, int leftEdge, int topEdge)
         {
-           
-                for (int x = 0; x < shape.Length; x++)
-                {
-                    //Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.SetCursorPosition((int)locationX + x, (int)locationY);
-                    Console.CursorVisible = false;
-                    if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true) Console.Write(' ');
-                    //if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true) Console.Write(shape[0 + y][0 + x]);
-                }
-                Console.WriteLine();
-           
+
+            for (int x = 0; x < shape.Length; x++)
+            {
+                //Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.SetCursorPosition((int)locationX + x, (int)locationY);
+                Console.CursorVisible = false;
+                if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true) Console.Write(' ');
+                //if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true) Console.Write(shape[0 + y][0 + x]);
+            }
+            Console.WriteLine();
+
         }
 
 
@@ -60,7 +60,7 @@ namespace ConsoleGame1
         {
             for (int x = 0; x < shape.Length; x++)
             {
-                if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true) 
+                if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.SetCursorPosition((int)locationX + x, (int)locationY);
@@ -69,19 +69,19 @@ namespace ConsoleGame1
                 }
             }
         }
-        
-         public void DrawTheSpaceShipII2(int width, int height, int leftEdge, int topEdge)
+
+        public void DrawTheSpaceShipII2(int width, int height, int leftEdge, int topEdge)
         {
-            
-                for (int x = 0; x < shape.Length; x++)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.SetCursorPosition((int)locationX + x, (int)locationY);
-                    Console.CursorVisible = false;
-                    if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true) Console.Write(shape[0 + x]);
-                }
-                
-           
+
+            for (int x = 0; x < shape.Length; x++)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition((int)locationX + x, (int)locationY);
+                Console.CursorVisible = false;
+                if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true) Console.Write(shape[0 + x]);
+            }
+
+
         }
 
         public bool IsPartOfTheLazerInsideTheEdges(int width, int height, int coordinateX, int coordinateY, int leftEdge, int topEdge)

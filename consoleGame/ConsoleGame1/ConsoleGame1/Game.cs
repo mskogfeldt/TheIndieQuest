@@ -7,9 +7,9 @@ namespace ConsoleGame1
     class Game
     {
         public int width = 196;
-        public int height = 45; 
-        public int leftEdge = 18; 
-        public int topEdge = 10; 
+        public int height = 45;
+        public int leftEdge = 18;
+        public int topEdge = 10;
         public Random random = new Random();
         public SpaceShip playersShip = new SpaceShip(30, 25/*,  1*/);
         public Meteor meteor = new Meteor(205, 25, -4, 0);
@@ -23,7 +23,7 @@ namespace ConsoleGame1
             {
                 for (int x = 0; x < leftEdge + width; x++)
                 {
-                    if ( y == topEdge || y == topEdge + height - 1)
+                    if (y == topEdge || y == topEdge + height - 1)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
                         if (x == leftEdge || x == leftEdge + width - 1)
@@ -34,7 +34,7 @@ namespace ConsoleGame1
                         {
                             Console.Write(" ");
                         }
-                        else if(x > leftEdge + width)
+                        else if (x > leftEdge + width)
                         {
                             Console.Write(" ");
                         }
@@ -68,7 +68,7 @@ namespace ConsoleGame1
                         Console.BackgroundColor = ConsoleColor.DarkBlue;
                         Console.Write(" ");
                     }
-                    else 
+                    else
                     {
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.Write(" ");
@@ -90,11 +90,11 @@ namespace ConsoleGame1
             {
                 System.Threading.Thread.Sleep(1000 / 10);
                 timePassed++;
-                if (timePassed >= timeWhenNextMeteorWillSpawn) 
+                if (timePassed >= timeWhenNextMeteorWillSpawn)
                 {
                     SpawnMeteor();
                     timeWhenNextMeteorWillSpawn = CalculateTimeWhenNextMeteorWillSpawn(timePassed);
-                } 
+                }
                 while (System.Console.KeyAvailable)
                 {
                     var key = System.Console.ReadKey(true);
@@ -130,24 +130,33 @@ namespace ConsoleGame1
                 playersShip.EraseImageOfSpaceShipsPreviousPosition(width, height, leftEdge, topEdge);
                 playersShip.MoveObject();
                 playersShip.DrawTheSpaceShipII2(width, height, leftEdge, topEdge);
-                foreach (BasicFriendlyLazer lazer in basicFriendlyLazers) 
+                foreach (BasicFriendlyLazer lazer in basicFriendlyLazers)
                 {
-                     lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
-                     lazer.MoveObject();
-                     lazer.DrawTheLazer(width, height, leftEdge, topEdge);
-                /*    lazer.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
+                    lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
                     lazer.MoveObject();
                     lazer.DrawTheLazer(width, height, leftEdge, topEdge);
-                    if (lazer.IsPartOfTheLazerInsideTheEdges(width, height, lazer.locationX, lazer.locationY, leftEdge, topEdge) == false) lazer.StopTheLazer();*/
+                    if (lazer.IsPartOfTheLazerInsideTheEdges(width, height, lazer.locationX, lazer.locationY, leftEdge, topEdge) == false) lazer.StopTheLazer();
+                    if (IsCollision(playersShip, meteor) == true) gameOver = true;
+                    foreach (Meteor meteor in meteorsInPlay) 
+                    {
+                        if (DoesLazerHitMeteor(lazer, meteor) == true) 
+                        {
+                            lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
+                            lazer.StopTheLazer();
+                        }
+                      
+                    }
+                 
                 }
-                foreach(Meteor meteor in meteorsInPlay) 
+                foreach (Meteor meteor in meteorsInPlay)
                 {
                     meteor.EraseImageOfMeteorsPreviousPosition2(width, height, leftEdge, topEdge);
                     meteor.MoveObject();
                     meteor.DrawTheMeteor2(width, height, leftEdge, topEdge);
-                    if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false)  meteor.StopTheMeteor();
+                    if (meteor.IsPartOfTheMeteorInsideTheEdges(width, height, meteor.locationX, meteor.locationY, leftEdge, topEdge) == false) meteor.StopTheMeteor();
                     if (IsCollision(playersShip, meteor) == true) gameOver = true;
                 }
+                basicFriendlyLazers = TakeLazersMakeNewListWithoutExpireLazers(basicFriendlyLazers);
                 meteorsInPlay = TakeMeteorsMakeNewListWithoutExpiredMeteors(meteorsInPlay);
                 if (IsPlayerAtEdge(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
@@ -160,13 +169,22 @@ namespace ConsoleGame1
             return sdfsdf;
         }
 
+        public bool DoesLazerHitMeteor(BasicFriendlyLazer gameObjectOne, Meteor gameObjectTwo)
+        {
+            for (int x = 0; x < gameObjectOne.shape.Length; x++)
+            {
+                if (CheckCoordinatesAndCompareToOtherObjectsCoordinatesAndSeeThatTheyAreNotSpace(gameObjectOne.locationX + x, gameObjectOne.locationY, gameObjectTwo) == true) return true;
+            }
+            return false;
+        }
+
         public bool IsCollision(SpaceShip gameObjectOne, Meteor gameObjectTwo)
         {
             for (int y = 0; y < gameObjectOne.shape.Length; y++)
             {
                 for (int x = 0; x < gameObjectOne.shape[0].Length; x++)
                 {
-                    if (gameObjectOne.shape[y][x] != ' ' &&  CheckCoordinatesAndCompareToOtherObjectsCoordinatesAndSeeThatTheyAreNotSpace(gameObjectOne.locationX + x, gameObjectOne.locationY + y, gameObjectTwo) == true) return true;
+                    if (gameObjectOne.shape[y][x] != ' ' && CheckCoordinatesAndCompareToOtherObjectsCoordinatesAndSeeThatTheyAreNotSpace(gameObjectOne.locationX + x, gameObjectOne.locationY + y, gameObjectTwo) == true) return true;
                 }
             }
             return false;
@@ -178,7 +196,7 @@ namespace ConsoleGame1
             {
                 for (int x = 0; x < meteor.shape[0].Length; x++)
                 {
-                    if (meteor.shape[y][x] != ' ' && meteor.locationX + x == xCoordinate && meteor.locationY + y == yCoordinate ) return true;
+                    if (meteor.shape[y][x] != ' ' && meteor.locationX + x == xCoordinate && meteor.locationY + y == yCoordinate) return true;
                 }
             }
             return false;
@@ -195,7 +213,7 @@ namespace ConsoleGame1
 
         public bool IsPlayerAtEdge(SpaceShip playerShip)
         {
-            if (playerShip.locationY == topEdge || playerShip.locationX == leftEdge ||  playerShip.locationY + playerShip.shape.Length == topEdge + height || playerShip.locationX + playerShip.shape[0].Length == leftEdge + width) return true;
+            if (playerShip.locationY <= topEdge || playerShip.locationX <= leftEdge || playerShip.locationY + playerShip.shape.Length >= topEdge + height || playerShip.locationX + playerShip.shape[0].Length >= leftEdge + width) return true;
             return false;
         }
 
@@ -206,12 +224,12 @@ namespace ConsoleGame1
             Console.WriteLine("GAME OVER!");
         }
 
-        public void FireFriendLyWeapon(SpaceShip spaceShip) 
+        public void FireFriendLyWeapon(SpaceShip spaceShip)
         {
             basicFriendlyLazers.Add(new BasicFriendlyLazer(spaceShip.locationX, spaceShip.locationY));
         }
 
-        public void SpawnMeteor() 
+        public void SpawnMeteor()
         {
             List<int> xCoordinateYCoordinate = RandomizeWhereMeteorSpawns();
             List<int> xVelocityYVelocity = new List<int> { };
@@ -221,7 +239,7 @@ namespace ConsoleGame1
             meteorsInPlay.Add(new Meteor(xCoordinateYCoordinate[0], xCoordinateYCoordinate[1], xVelocityYVelocity[0], xVelocityYVelocity[1]));
         }
 
-        public List<int> RandomizeWhereMeteorSpawns() 
+        public List<int> RandomizeWhereMeteorSpawns()
         {
             List<int> startingCoordinatesForMeteorXY = new List<int> { };
             int direction = random.Next(1, 9);
@@ -235,15 +253,15 @@ namespace ConsoleGame1
                 startingCoordinatesForMeteorXY.Add(DetermineStartingXCoordinateForMeteorComingFromNorthOrSouth());
                 startingCoordinatesForMeteorXY.Add(topEdge + height - 1);
             }
-            else 
+            else
             {
                 startingCoordinatesForMeteorXY.Add(DetermineStartingXCoordinateForMeteorComingFromNorthOrSouth());
                 startingCoordinatesForMeteorXY.Add(topEdge + 1);
-            } 
+            }
             return startingCoordinatesForMeteorXY;
         }
 
-        public List<int> DetermineVelocityOfMeteorFromWest(int startingCoordinateY) 
+        public List<int> DetermineVelocityOfMeteorFromWest(int startingCoordinateY)
         {
             int vevelosotyX = 0;
             int vevelosotyY = 0;
@@ -262,14 +280,14 @@ namespace ConsoleGame1
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
-            else if (startingCoordinateY > (topEdge + height) / 2 && startingCoordinateY <= (topEdge + height) * 3 / 4) 
+            else if (startingCoordinateY > (topEdge + height) / 2 && startingCoordinateY <= (topEdge + height) * 3 / 4)
             {
                 vevelosotyY = random.Next(-1, 1);
                 vevelosotyX = random.Next(-7, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
             }
-            else 
+            else
             {
                 vevelosotyY = random.Next(-2, 0);
                 vevelosotyX = random.Next(-6, -4);
@@ -283,7 +301,7 @@ namespace ConsoleGame1
         {
             int northOrSouthModifier = 0;
             if (northOrSouth == "north") northOrSouthModifier = 1;
-            if (northOrSouth == "south") northOrSouthModifier = - 1;
+            if (northOrSouth == "south") northOrSouthModifier = -1;
             int vevelosotyX = 0;
             int vevelosotyY = 0;
             List<int> vevelosotyXY = new List<int> { };
@@ -303,7 +321,7 @@ namespace ConsoleGame1
             }
             else if (startingCoordinateX > (leftEdge + width) / 2 && startingCoordinateX <= (leftEdge + width) * 3 / 4)
             {
-                vevelosotyY = random.Next( 1, 4) * northOrSouthModifier;
+                vevelosotyY = random.Next(1, 4) * northOrSouthModifier;
                 vevelosotyX = random.Next(-6, -4);
                 vevelosotyXY.Add(vevelosotyX);
                 vevelosotyXY.Add(vevelosotyY);
@@ -325,25 +343,36 @@ namespace ConsoleGame1
             return random.Next(leftEdge + minumumDistanceToSpawn, leftEdge + width);
         }
 
-        public int DetermineYCoordinateForMeteorComingFromWest() 
+        public int DetermineYCoordinateForMeteorComingFromWest()
         {
             return random.Next(topEdge + meteor.shape.Length, topEdge + height);
         }
 
-        public int CalculateTimeWhenNextMeteorWillSpawn(int timePassed) 
+        public int CalculateTimeWhenNextMeteorWillSpawn(int timePassed)
         {
             return random.Next(5, 10) + timePassed;
         }
 
-        public List<Meteor> TakeMeteorsMakeNewListWithoutExpiredMeteors(List<Meteor> unsorterMeteors) 
+        public List<Meteor> TakeMeteorsMakeNewListWithoutExpiredMeteors(List<Meteor> unsorterMeteors)
         {
             List<Meteor> sortedMeteors = new List<Meteor> { };
-            foreach (Meteor meteor in unsorterMeteors) 
+            foreach (Meteor meteor in unsorterMeteors)
             {
                 if (meteor.velocityX == 0 && meteor.velocityY == 0) continue;
                 else sortedMeteors.Add(meteor);
             }
             return sortedMeteors;
+        }
+
+        public List<BasicFriendlyLazer> TakeLazersMakeNewListWithoutExpireLazers(List<BasicFriendlyLazer> unsorterLazers)
+        {
+            List<BasicFriendlyLazer> sortedLazers = new List<BasicFriendlyLazer> { };
+            foreach (BasicFriendlyLazer lazer in unsorterLazers)
+            {
+                if (lazer.velocityX == 0 && meteor.velocityY == 0) continue;
+                else sortedLazers.Add(lazer);
+            }
+            return sortedLazers;
         }
 
     }
