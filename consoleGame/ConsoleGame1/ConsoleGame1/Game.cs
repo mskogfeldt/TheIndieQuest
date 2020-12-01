@@ -6,6 +6,7 @@ namespace ConsoleGame1
 {
     class Game
     {
+       
         public int width = 196;
         public int height = 45;
         public int leftEdge = 18;
@@ -226,7 +227,12 @@ namespace ConsoleGame1
 
         public void FireFriendLyWeapon(SpaceShip spaceShip)
         {
-            basicFriendlyLazers.Add(new BasicFriendlyLazer(spaceShip.locationX, spaceShip.locationY));
+
+            //List<int> firecoordinates = new List<int> { };
+            List<int> firecoordinates = spaceShip.CalculateFireCoordinates();
+            basicFriendlyLazers.Add(new BasicFriendlyLazer(firecoordinates[0], firecoordinates[1]));
+
+            //basicFriendlyLazers.Add(new BasicFriendlyLazer(spaceShip.locationX, spaceShip.locationY));
         }
 
         public void SpawnMeteor()

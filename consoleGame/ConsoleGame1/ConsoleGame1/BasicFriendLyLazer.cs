@@ -11,12 +11,13 @@ namespace ConsoleGame1
 
         public BasicFriendlyLazer(int locationXCoordinates, int lokationYCoordinates)
         {
-            locationX = locationXCoordinates;
-            locationY = lokationYCoordinates;
-            /*  speed = speedOfSpaceShip;*/
-            // shape = shapeForObject;
             velocityX = 10;
             velocityY = 0;
+            locationX = locationXCoordinates - velocityX;
+            locationY = lokationYCoordinates - velocityY;
+            /*  speed = speedOfSpaceShip;*/
+            // shape = shapeForObject;
+            
             damage = 1;
         }
 
@@ -54,6 +55,19 @@ namespace ConsoleGame1
 
         }
 
+        public void DrawWhenSpawnd(int width, int height, int leftEdge, int topEdge) 
+        {
+            for (int x = 0; x < shape.Length; x++)
+            {
+                if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.SetCursorPosition((int)locationX + x, (int)locationY);
+                    Console.CursorVisible = false;
+                    Console.Write(shape[x]);
+                }
+            }
+        }
 
 
         public void DrawTheLazer(int width, int height, int leftEdge, int topEdge)

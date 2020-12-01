@@ -7,21 +7,83 @@ namespace ConsoleGame1
 {
     public class EnemySpaceShip : GameObject
     {
-        public string[] shape2 = new string[] { ">╔═╗- ", " ║=║>>", ">╚═╝- " };
-        public string[] shape = new string[] { " -╔═╗", "<<║=║", " -╚═╝<" };
+        /*public string[] shape2 = new string[] { ">╔═╗- ", " ║=║>>", ">╚═╝- " };
+        public string[] shape = new string[] { " -╔═╗", "<<║=║", " -╚═╝<" };*/
+        public string[] shape = new string[] { "   AA   ", "  AAAA  ", "<[][][]>", "  VVVV  ", "   VV   " };
+        /*
+         
+
+         AA
+        AAAA
+      <[][][]>
+        VVVV        
+         VV
+
+        
+
+        >╔═╗-   
+         ║=║>> 
+        >╚═╝- 
+
+         AA
+        AAAA
+      ╔══════╗
+      <[][][]>
+      ╚══════╝
+        VVVV
+         VV
+
+
+           A
+          AAA
+         AAAAA
+        AAAAAAA
+     ╔══════════╗
+    <║[][][][][]║>
+     ╚══════════╝
+        VVVVVVV
+         VVVVV
+          VVV
+           V
+
+         
+          AA
+         AAAA
+        AAAAAA
+       AAAAAAAA
+      AAAAAAAAAA
+    <╔══════════╗>
+    <║[][][][][]║>
+    <╚══════════╝>
+      VVVVVVVVVV
+       VVVVVVVV
+        VVVVVV
+         VVVV
+          VV
+
+         
+         */
+        //public 
         public List<string> weapons = new List<string> { };
         public List<int> xnumbers;
         public List<int> ynumbers;
+        int indexOfTravel;
+        int indexOfWhereLoopStarts;
 
+        //public List<>
+        public int[] velocityXWhenLooping2;
+        public int[] velocityYWhenLooping2;
+        public List<int> velocityXWhenLooping; // = new List<int> { 2, 2,/*loopStarts*/ -2, -2, 2, 2, 0, 0, 0, 0 };
+        public List<int> velocityYWhenLooping; // = new List<int> { 0, 0,/*loopStarts*/ -2, -2, -2, -2, 2, 2, 2, 2 };
 
-
-        public EnemySpaceShip(int locationXCoordinates, int lokationYCoordinates)
+        public EnemySpaceShip(int locationXCoordinates, int lokationYCoordinates, List<int> valuesForVelosityX, List<int> valuesForVelosityY, int numberBeforeLooping, int indexOfLoopStart)
         {
             locationX = locationXCoordinates;
             locationY = lokationYCoordinates;
+            
 
-            velocityX = 0;
-            velocityY = 0;
+            velocityX = valuesForVelosityX[0];
+            velocityY = valuesForVelosityY[0];
 
         }
     }

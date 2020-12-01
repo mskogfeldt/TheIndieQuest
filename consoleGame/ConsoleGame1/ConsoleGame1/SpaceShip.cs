@@ -9,9 +9,12 @@ namespace ConsoleGame1
     {
         // public string[] shape = new string[] { "  \\[]\\   ", ">[][][][]>", "/[]/" };
 
+        /**/
+
         
         public string[] shape = new string[] { ">╔═╗- ", " ║=║>>", ">╚═╝- " };
-       // public List<Weapon> weapons = new List<Weapon> { };
+      //  public int fireLocationX = locationX + 6;
+        //public List<Attack> attacks = new List<Attack> { };
        // public List<int> xnumbers;
        // public List<int> ynumbers;
 
@@ -19,6 +22,7 @@ namespace ConsoleGame1
         {
             locationX = locationXCoordinates;
             locationY = lokationYCoordinates;
+
             /*  speed = speedOfSpaceShip;*/
             // shape = shapeForObject;
             velocityX = 0;
@@ -26,6 +30,13 @@ namespace ConsoleGame1
 
         }
         //int someInt = (int)someFloat
+        public List<int> CalculateFireCoordinates() 
+        {
+            List<int> firecoordinates = new List<int> { };
+            firecoordinates.Add(locationX + 6 + velocityX);
+            firecoordinates.Add(locationY + 1 + velocityY);
+            return firecoordinates;
+        }
 
         public void DrawTheSpaceShipII(int width, int height)
         {
@@ -56,6 +67,8 @@ namespace ConsoleGame1
                 Console.WriteLine();
             }
         }
+
+        ///public Attack 
 
 
         public bool IsWhithinEdges(int width, int height, int coordinateX, int coordinateY)
