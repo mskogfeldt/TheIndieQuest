@@ -22,23 +22,6 @@ namespace ConsoleGame1
             velocityY = velocityDirectionY;
         }
 
-
-        public void DrawTheMeteor(int width, int height)
-        {
-            for (int y = 0; y < shape.Length; y++)
-            {
-                for (int x = 0; x < shape[y].Length; x++)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
-                    Console.CursorVisible = false;
-                    if (IsWhithinEdges(width, height, locationX + x, locationY + y) == true) Console.Write(shape[0 + y][0 + x]);
-                }
-                Console.WriteLine();
-            }
-        }
-
-
         public void DrawTheMeteor2(int width, int height, int leftEdge, int topEdge)
         {
             for (int y = 0; y < shape.Length; y++)
@@ -60,11 +43,7 @@ namespace ConsoleGame1
                     return false;
                 }*/
 
-        public bool IsWhithinEdges(int width, int height, int coordinateX, int coordinateY)
-        {
-            if (coordinateX > 1 && coordinateX < width - 1 && coordinateY > 1 && coordinateY < height - 1) return true;
-            return false;
-        }
+    
 
 
         public bool IsPartOfTheMeteorInsideTheEdges(int width, int height, int coordinateX, int coordinateY, int leftEdge, int topEdge)
@@ -124,21 +103,7 @@ namespace ConsoleGame1
 
         }
          */
-        public void EraseImageOfMeteorsPreviousPosition(int width, int height)
-        {
-            for (int y = 0; y < shape.Length; y++)
-            {
-                for (int x = 0; x < shape[y].Length; x++)
-                {
-                    //Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
-                    Console.CursorVisible = false;
-                    if (IsWhithinEdges(width, height, locationX + x, locationY + y) == true) Console.Write(' ');
-                }
-                Console.WriteLine();
-            }
-        }
-
+  
         public void EraseImageOfMeteorsPreviousPosition2(int width, int height, int leftEdge, int topEdge)
         {
             for (int y = 0; y < shape.Length; y++)

@@ -59,7 +59,7 @@ namespace ConsoleGame1
             {
                 for (int x = 0; x < shape[y].Length; x++)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
                     Console.CursorVisible = false;
                     if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true) Console.Write(shape[0 + y][0 + x]);

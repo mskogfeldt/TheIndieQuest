@@ -18,7 +18,7 @@ namespace ConsoleGame1
             //newGame.drawTheSquare(newGame.width, newGame.height);
             newGame.drawTheSquare2(newGame.width, newGame.height, newGame.leftEdge, newGame.topEdge);
             Console.CursorVisible = false;
-            newGame.RunTheGame();
+            newGame.RunTheEarlyGame();
 
 
         }

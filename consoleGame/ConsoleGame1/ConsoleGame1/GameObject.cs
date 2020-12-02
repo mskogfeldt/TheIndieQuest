@@ -8,6 +8,7 @@ namespace ConsoleGame1
     {
         // public int hitPoints;
         //public string[] shape = new string[] { } {set;}
+        public int damage { get; set; }
         public int locationX { get; set; }
         public int locationY { get; set; }
         public int speed { get; set; }
