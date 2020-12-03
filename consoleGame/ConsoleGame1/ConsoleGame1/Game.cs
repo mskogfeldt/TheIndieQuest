@@ -102,6 +102,20 @@ namespace ConsoleGame1
                     List<int> yValuesForEnemysVelocity = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, /*loop*/ -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,/*16*/ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
                     enemySpaceShipsInPlay.Add(new EnemySpaceShip(leftEdge + width, topEdge + height * 4 / 5, xValuesForEnemysVelocity, yValuesForEnemysVelocity, 8, false, false));
                 }
+                if (timePassed == 250)
+                {
+
+                    List<int> xValuesForEnemysVelocity = new List<int> { -2, -2, -2, -2, -2, -2, -2, -2,/*loop*/ -2, -2, -2, -2, -2, -2, -2, -2,/**/ 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,/* 0, 0*/ };
+                    List<int> yValuesForEnemysVelocity = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, /*loop*/ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,/*16*/ -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2 };
+                    enemySpaceShipsInPlay.Add(new EnemySpaceShip(leftEdge + width, topEdge + height * 1 / 5, xValuesForEnemysVelocity, yValuesForEnemysVelocity, 8, false, true));
+                }
+                if (timePassed == 258)
+                {
+
+                    List<int> xValuesForEnemysVelocity = new List<int> { -2, -2, -2, -2, -2, -2, -2, -2,/*loop*/ -2, -2, -2, -2, -2, -2, -2, -2,/**/ 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,/* 0, 0*/ };
+                    List<int> yValuesForEnemysVelocity = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, /*loop*/ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,/*16*/ -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2 };
+                    enemySpaceShipsInPlay.Add(new EnemySpaceShip(leftEdge + width, topEdge + height * 1 / 5, xValuesForEnemysVelocity, yValuesForEnemysVelocity, 8, false, true));
+                }
                 // else if ()
                 while (System.Console.KeyAvailable)
                 {
