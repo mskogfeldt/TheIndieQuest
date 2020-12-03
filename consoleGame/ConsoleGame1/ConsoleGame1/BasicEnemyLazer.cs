@@ -70,5 +70,13 @@ namespace ConsoleGame1
             velocityY = 0;
         }
 
+        public List<int> CalculateFireCoordinates()
+        {
+            List<int> firecoordinates = new List<int> { };
+            firecoordinates.Add(locationX + velocityX);
+            firecoordinates.Add(locationY + 2 + velocityY);
+            return firecoordinates;
+        }
+
     }
 }

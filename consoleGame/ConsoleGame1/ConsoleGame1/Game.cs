@@ -6,7 +6,7 @@ namespace ConsoleGame1
 {
     class Game
     {
-       
+
         public int width = 196;
         public int height = 45;
         public int leftEdge = 18;
@@ -15,8 +15,9 @@ namespace ConsoleGame1
         public SpaceShip playersShip = new SpaceShip(30, 25/*,  1*/);
         public Meteor meteor = new Meteor(205, 25, -4, 0);
         public List<EnemySpaceShip> enemySpaceShipsInPlay = new List<EnemySpaceShip> { };
-       // public List<EnemyLazers> enemyLazersInPlay = new List<EnemyLazers> { };
+        // public List<EnemyLazers> enemyLazersInPlay = new List<EnemyLazers> { };
         public List<BasicFriendlyLazer> basicFriendlyLazers = new List<BasicFriendlyLazer> { };
+        public List<BasicEnemyLazer> basicEnemyLazers = new List<BasicEnemyLazer> { };
         public List<Meteor> meteorsInPlay = new List<Meteor> { };
 
         public void drawTheSquare2(int width, int height, int leftEdge, int topEdge)
@@ -59,16 +60,14 @@ namespace ConsoleGame1
             }
         }
 
-       
-
         public void RunTheEarlyGame()
         {
             bool earlyGame = true;
-           //bool middleGame = false;
+            //bool middleGame = false;
             bool bossFight = false;
             int timePassed = 0;
             int timeWhenNextMeteorWillSpawn = CalculateTimeWhenNextMeteorWillSpawnEarlyGame(timePassed);
-           // spaceShipsInPlay.Add(playersShip);
+            // spaceShipsInPlay.Add(playersShip);
             meteorsInPlay.Add(meteor);
             bool gameOver = false;
 
@@ -91,20 +90,20 @@ namespace ConsoleGame1
                 //  if (timePassed == 260)
                 if (timePassed == 130)
                 {
-                   
-                    List <int> xValuesForEnemysVelocity = new List<int> { -2, -2, -2, -2, -2, -2, -2, -2,/*loop*/ -2, -2, -2, -2, -2, -2, -2,-2 ,2 ,2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,/* 0, 0*/ };
-                    List <int> yValuesForEnemysVelocity = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, /*loop*/ -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,/*16*/ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
-                    enemySpaceShipsInPlay.Add(new EnemySpaceShip(leftEdge + width, topEdge + height * 3 / 4, xValuesForEnemysVelocity, yValuesForEnemysVelocity, 8));
+
+                    List<int> xValuesForEnemysVelocity = new List<int> { -2, -2, -2, -2, -2, -2, -2, -2,/*loop*/ -2, -2, -2, -2, -2, -2, -2, -2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,/* 0, 0*/ };
+                    List<int> yValuesForEnemysVelocity = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, /*loop*/ -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,/*16*/ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+                    enemySpaceShipsInPlay.Add(new EnemySpaceShip(leftEdge + width, topEdge + height * 4 / 5, xValuesForEnemysVelocity, yValuesForEnemysVelocity, 8, false, false));
                 }
                 if (timePassed == 146)
                 {
 
                     List<int> xValuesForEnemysVelocity = new List<int> { -2, -2, -2, -2, -2, -2, -2, -2,/*loop*/ -2, -2, -2, -2, -2, -2, -2, -2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,/* 0, 0*/ };
                     List<int> yValuesForEnemysVelocity = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0, /*loop*/ -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2,/*16*/ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
-                    enemySpaceShipsInPlay.Add(new EnemySpaceShip(leftEdge + width, topEdge + height * 3 / 4, xValuesForEnemysVelocity, yValuesForEnemysVelocity, 8));
+                    enemySpaceShipsInPlay.Add(new EnemySpaceShip(leftEdge + width, topEdge + height * 4 / 5, xValuesForEnemysVelocity, yValuesForEnemysVelocity, 8, false, false));
                 }
-                    // else if ()
-                    while (System.Console.KeyAvailable)
+                // else if ()
+                while (System.Console.KeyAvailable)
                 {
                     var key = System.Console.ReadKey(true);
                     switch (key.Key)
@@ -145,25 +144,46 @@ namespace ConsoleGame1
                     lazer.MoveObject();
                     lazer.DrawTheLazer(width, height, leftEdge, topEdge);
                     if (lazer.IsPartOfTheLazerInsideTheEdges(width, height, lazer.locationX, lazer.locationY, leftEdge, topEdge) == false) lazer.StopTheLazer();
-                    if (IsCollision(playersShip, meteor) == true) gameOver = true;
-                    foreach (Meteor meteor in meteorsInPlay) 
+                   
+                    foreach (Meteor meteor in meteorsInPlay)
                     {
-                        if (DoesLazerHitMeteor(lazer, meteor) == true) 
+                        if (DoesLazerHitMeteor(lazer, meteor) == true)
                         {
                             lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
                             lazer.StopTheLazer();
                         }
-                      
+
                     }
-                 
+                    foreach (EnemySpaceShip enemy in enemySpaceShipsInPlay)
+                    {
+                        if (DoesLazerHitenemy(lazer, enemy) == true)
+                        {
+                            lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
+                            lazer.StopTheLazer();
+                            enemy.EraseImageOfEnemysPreviousPosition(width, height, leftEdge, topEdge);
+                            enemy.isIntact = false;
+                        }
+                    }
                 }
-                foreach(EnemySpaceShip enemySpaceShip in enemySpaceShipsInPlay) 
+                foreach (EnemySpaceShip enemySpaceShip in enemySpaceShipsInPlay)
                 {
                     enemySpaceShip.EraseImageOfEnemysPreviousPosition(width, height, leftEdge, topEdge);
                     enemySpaceShip.StearEnemyShip();
                     enemySpaceShip.MoveObject();
+                    if (enemySpaceShip.WillEnemyFire())
+                    {
+                        FireLowerEnemyWeapon(enemySpaceShip);
+                    }
                     enemySpaceShip.DrawTheEnemy(width, height, leftEdge, topEdge);
-                
+
+                }
+                foreach (BasicEnemyLazer lazer in basicEnemyLazers)
+                {
+                    lazer.EraseImageOfLazersPreviousPosition2(width, height, leftEdge, topEdge);
+                    lazer.MoveObject();
+                    lazer.DrawTheLazer(width, height, leftEdge, topEdge);
+                    if (lazer.IsPartOfTheLazerInsideTheEdges(width, height, lazer.locationX, lazer.locationY, leftEdge, topEdge) == false) lazer.StopTheLazer();
+                    if (DoesEnemyLazerHit(lazer, playersShip)) gameOver = true;
                 }
                 foreach (Meteor meteor in meteorsInPlay)
                 {
@@ -174,7 +194,9 @@ namespace ConsoleGame1
                     if (IsCollision(playersShip, meteor) == true) gameOver = true;
                 }
                 basicFriendlyLazers = TakeLazersMakeNewListWithoutExpireLazers(basicFriendlyLazers);
+                basicEnemyLazers = TakeEnemyLazersMakeNewListWithoutExpireLazers(basicEnemyLazers);
                 meteorsInPlay = TakeMeteorsMakeNewListWithoutExpiredMeteors(meteorsInPlay);
+                enemySpaceShipsInPlay = TakeEnemysMakeNewListWithoutExpireEnemies(enemySpaceShipsInPlay);
                 if (IsPlayerAtEdge(playersShip) == true) gameOver = true;
                 if (gameOver == true) GameOver();
             }
@@ -196,6 +218,15 @@ namespace ConsoleGame1
         }
 
         public bool DoesLazerHitenemy(BasicFriendlyLazer gameObjectOne, EnemySpaceShip gameObjectTwo)
+        {
+            for (int x = 0; x < gameObjectOne.shape.Length; x++)
+            {
+                if (CheckCoordinatesAndCompareToOtherSpaceShipCoordinatesAndSeeThatTheyAreNotSpace(gameObjectOne.locationX + x, gameObjectOne.locationY, gameObjectTwo) == true) return true;
+            }
+            return false;
+        }
+
+        public bool DoesEnemyLazerHit(BasicEnemyLazer gameObjectOne, SpaceShip gameObjectTwo)
         {
             for (int x = 0; x < gameObjectOne.shape.Length; x++)
             {
@@ -240,6 +271,18 @@ namespace ConsoleGame1
             return false;
         }
 
+        public bool CheckCoordinatesAndCompareToOtherSpaceShipCoordinatesAndSeeThatTheyAreNotSpace(int xCoordinate, int yCoordinate, SpaceShip herosShip)
+        {
+            for (int y = 0; y < herosShip.shape.Length; y++)
+            {
+                for (int x = 0; x < herosShip.shape[0].Length; x++)
+                {
+                    if (herosShip.shape[y][x] != ' ' && herosShip.locationX + x == xCoordinate && herosShip.locationY + y == yCoordinate) return true;
+                }
+            }
+            return false;
+        }
+
         public bool IsEdge(List<GameObject> gameObject)
         {
             foreach (GameObject objectInQuestion in gameObject)
@@ -261,6 +304,12 @@ namespace ConsoleGame1
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("GAME OVER!");
             Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public void FireLowerEnemyWeapon(EnemySpaceShip enemy)
+        {
+            List<int> firecoordinates = enemy.CalculateFireCoordinates();
+            basicEnemyLazers.Add(new BasicEnemyLazer(firecoordinates[0], firecoordinates[1]));
         }
 
         public void FireFriendLyWeapon(SpaceShip spaceShip)
@@ -419,12 +468,23 @@ namespace ConsoleGame1
             return sortedLazers;
         }
 
-        public List<EnemySpaceShip> TakeEnemysMakeNewListWithoutExpireEnemies(List<BasicFriendlyLazer> unsorterEnemies)
+        public List<BasicEnemyLazer> TakeEnemyLazersMakeNewListWithoutExpireLazers(List<BasicEnemyLazer> unsorterLazers)
+        {
+            List<BasicEnemyLazer> sortedLazers = new List<BasicEnemyLazer> { };
+            foreach (BasicEnemyLazer lazer in unsorterLazers)
+            {
+                if (lazer.velocityX == 0 && lazer.velocityY == 0) continue;
+                else sortedLazers.Add(lazer);
+            }
+            return sortedLazers;
+        }
+
+        public List<EnemySpaceShip> TakeEnemysMakeNewListWithoutExpireEnemies(List<EnemySpaceShip> unsorterEnemies)
         {
             List<EnemySpaceShip> sorterEnemies = new List<EnemySpaceShip> { };
-            foreach (EnemySpaceShip enemy in sorterEnemies)
+            foreach (EnemySpaceShip enemy in unsorterEnemies)
             {
-                if (enemy.velocityX == 0 && meteor.velocityY == 0) continue;
+                if (!enemy.isIntact) continue;
                 else sorterEnemies.Add(enemy);
             }
             return sorterEnemies;

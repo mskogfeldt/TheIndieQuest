@@ -22,6 +22,27 @@ namespace ConsoleGame1
             velocityY = velocityDirectionY;
         }
 
+        /*
+            public void DrawTheEnemy(int width, int height, int leftEdge, int topEdge)
+        {
+            for (int y = 0; y < shape.Length; y++)
+            {
+                for (int x = 0; x < shape[y].Length; x++)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
+                    Console.CursorVisible = false;
+                    if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true)
+                    {
+                        if (shape[0 + y][0 + x] == ' ') continue;
+                        Console.Write(shape[0 + y][0 + x]);
+                    }
+                }
+            }
+        }
+         
+         */
+
         public void DrawTheMeteor2(int width, int height, int leftEdge, int topEdge)
         {
             for (int y = 0; y < shape.Length; y++)
@@ -31,9 +52,12 @@ namespace ConsoleGame1
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.SetCursorPosition((int)locationX + x, (int)locationY + y);
                     Console.CursorVisible = false;
-                    if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true) Console.Write(shape[0 + y][0 + x]);
+                    if (IsWhithinEdges2(width, height, locationX + x, locationY + y, leftEdge, topEdge) == true)
+                    {
+                        if (shape[0 + y][0 + x] == ' ') continue;
+                        Console.Write(shape[0 + y][0 + x]);
+                    }
                 }
-                Console.WriteLine();
             }
         }
         /*
@@ -43,7 +67,7 @@ namespace ConsoleGame1
                     return false;
                 }*/
 
-    
+
 
 
         public bool IsPartOfTheMeteorInsideTheEdges(int width, int height, int coordinateX, int coordinateY, int leftEdge, int topEdge)
@@ -102,8 +126,11 @@ namespace ConsoleGame1
             
 
         }
+
+
+
          */
-  
+
         public void EraseImageOfMeteorsPreviousPosition2(int width, int height, int leftEdge, int topEdge)
         {
             for (int y = 0; y < shape.Length; y++)
