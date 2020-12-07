@@ -17,61 +17,7 @@ namespace ConsoleGame1
         /*
 
 
-         AA
-        AAAA
-      <[][][]>
-        VVVV        
-         VV
-
-        
-
-        >╔═╗-   
-         ║=║>> 
-        >╚═╝- 
-
-         AA
-        AAAA
-      ╔══════╗
-      <[][][]>
-      ╚══════╝
-        VVVV
-         VV
-
-         AA
-        AAAA
-      ╔══════╗
-     <║[][][]║>
-      ╚══════╝
-        VVVV
-         VV
-        
-
-           A
-          AAA
-         AAAAA
-        AAAAAAA
-     ╔══════════╗
-    <║[][][][][]║>
-     ╚══════════╝
-        VVVVVVV
-         VVVVV
-          VVV
-           V
-
-         
-          AA
-         AAAA
-        AAAAAA
-       AAAAAAAA
-      AAAAAAAAAA
-    <╔══════════╗>
-    <║[][][][][]║>
-    <╚══════════╝>
-      VVVVVVVVVV
-       VVVVVVVV
-        VVVVVV
-         VVVV
-          VV
+       
 
          
          */
@@ -201,3 +147,61 @@ namespace ConsoleGame1
 
     }
 }
+/*
+         AA
+        AAAA
+      <[][][]>
+        VVVV        
+         VV
+
+        
+
+        >╔═╗-   
+         ║=║>> 
+        >╚═╝- 
+
+         AA
+        AAAA
+      ╔══════╗
+      <[][][]>
+      ╚══════╝
+        VVVV
+         VV
+
+         AA
+        AAAA
+      ╔══════╗
+     <║[][][]║>
+      ╚══════╝
+        VVVV
+         VV
+        
+
+           A
+          AAA
+         AAAAA
+        AAAAAAA
+     ╔══════════╗
+    <║[][][][][]║>
+     ╚══════════╝
+        VVVVVVV
+         VVVVV
+          VVV
+           V
+
+         
+          AA
+         AAAA
+        AAAAAA
+       AAAAAAAA
+      AAAAAAAAAA
+    <╔══════════╗>
+    <║[][][][][]║>
+    <╚══════════╝>
+      VVVVVVVVVV
+       VVVVVVVV
+        VVVVVV
+         VVVV
+          VV
+ 
+ */

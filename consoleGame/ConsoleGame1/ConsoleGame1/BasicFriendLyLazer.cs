@@ -45,7 +45,7 @@ namespace ConsoleGame1
             {
                 if (IsWhithinEdges2(width, height, locationX + x, locationY, leftEdge, topEdge) == true)
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.SetCursorPosition((int)locationX + x, (int)locationY);
                     Console.CursorVisible = false;
                     Console.Write(shape[x]);
