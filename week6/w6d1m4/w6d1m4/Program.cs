@@ -19,7 +19,7 @@ namespace w6d1m4
 
             CreateListOfMonsterNames(listOfMonsterNames, monsterData);
 
-            // CreateListOfMonsterWhoRollsTenOrMoreDiceForHp(listOfMonsterWhoRollsTenOrMoreDiceForHp, monsterData);
+            
 
             PringMonsterNames(listOfMonsterNames);
 
@@ -51,26 +51,7 @@ namespace w6d1m4
                 }
             }
 
-            void CreateListOfMonsterWhoRollsTenOrMoreDiceForHp(List<bool> monsterHp, string[] listOfMonsterData)
-            {
-                string tenOrMoreRolls = "\\d\\dd";
-
-                for (int i = 1; i < listOfMonsterData.Length; i++)
-                {
-                    if (monsterData[i - 1].Contains("Hit Points"))
-                    {
-                        if (Regex.IsMatch(monsterData[i - 1], tenOrMoreRolls))
-                        {
-                            monsterHp.Add(true);
-                        }
-                        else
-                        {
-                            monsterHp.Add(false);
-                        }
-                    }
-                }
-
-            }
+            
         }
     }
 }
